@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<head>
+    <title>Quick Start - Cuneiform</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="../assets/plugins/elegant_font/css/style.css">
+    <link rel="stylesheet" href="../assets/plugins/mdi/css/materialdesignicons.min.css">
+    
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="../assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+</head> 
+
+<body class="body-blue">
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container">
+                <div class="branding">
+                    <h1 class="logo">
+                        <a href="../index.html">
+                            <span aria-hidden="true" class="icon_documents_alt icon"></span>
+                            <span class="text-highlight">Cuneiform</span><span class="text-bold">Docs</span>
+                        </a>
+                    </h1>
+                </div><!--//branding-->
+                <ol class="breadcrumb">
+                    <li><a href="../index.html">Home</a></li>
+                    <li class="active">Quick Start</li>
+                </ol>
+            </div><!--//container-->
+        </header><!--//header-->
+        <div class="doc-wrapper">
+            <div class="container">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title"><i class="icon fa fa-paper-plane"></i> Quick Start</h1>
+                    <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 1st, 2018</div>
+                </div><!--//doc-header-->
+                <div class="doc-body">
+                    <div class="doc-content">
+                        <div class="content-inner">
+                            <section id="intro-section" class="doc-section">
+                                <h2 class="section-title">Introduction</h2>
+                                <div class="section-block">
+                                    <p>
+                                       This chapter provides a quick understanding into how to run a Cuneiform application.
+                                        For this purpose, we will use the <b>ChessHelper</b> sample.
+                                    </p>
+                                    <p>
+                                        ChessHelper is a sample conversational application which provides us with basic
+                                        information about chess in natural language. This sample identifies our intentions
+                                        from what we type and provide us with information relevant to what we requested.
+                                    </p>
+                                </div>
+                            </section><!--//doc-section-->
+
+                            <section id="prerequisites-section" class="doc-section">
+                                <h2 class="section-title">Prerequisites</h2>
+                                <div class="section-block">
+                                    <p>Before you begin, Cuneiform is supported for systems fulfilling the following requirements.</p>
+
+                                    <h6>Software</h6>
+                                    <ul class="list">
+                                        <li>Python 3.6+</li>
+                                            <ul>
+                                                <li>pip3 for Python 3.x</li>
+                                            </ul>
+                                        <li>Node.js 6.11+</li>
+                                    </ul>
+
+                                    <h6>Operating Systems (64-bit)</h6>
+                                    <ul class="list">
+                                        <li>Ubuntu 16.04 or later</li>
+                                        <li>macOS 10.13.3 (High Sierra) or later</li>
+                                    </ul>
+                                </div>
+                            </section><!--//doc-section-->
+
+                            <section id="installation-section" class="doc-section">
+                                <h2 class="section-title">Installation</h2>
+                                <div id="step1"  class="section-block">
+                                    <h3 class="block-title">Step One</h3>
+                                    <p>
+                                        Clone the cuneiform project repository from GitHub.
+                                    </p>
+                                    <div class="code-block">
+                                        <p><code>git clone https://github.com/Savidude/cuneiform.git</code></p>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+                                <div id="step2"  class="section-block">
+                                    <h3 class="block-title">Step Two</h3>
+                                    <p>
+                                        Navigate to the <em>bin</em> directory in the project and run the <em>install.sh</em> script.
+                                    </p>
+                                    <div class="code-block">
+                                        <p><code>cd cuneiform/bin</code></p>
+                                        <p><code>./install.sh</code></p>
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+                                <div id="step3"  class="section-block">
+                                    <h3 class="block-title">Step Three</h3>
+                                    <p>
+                                        Run Cuneiform.
+                                    </p>
+                                    <div class="code-block">
+                                        <p><code>./start.sh</code></p>
+                                    </div><!--//code-block-->
+
+                                    <div class="callout-block callout-warning">
+                                        <div class="icon-holder">
+                                            <i class="fa fa-exclamation-triangle"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <h4 class="callout-title">Address already in use error</h4>
+                                            <p>If the following error <b>OSError: [Errno 48] Address already in use</b> occurs,</p>
+                                            <p>Search for the following processes and kill them.</p>
+                                            <br>
+                                            <p><code>ps aux | grep start.py</code></p>
+                                            <p><code>ps aux | grep classifier.py</code></p>
+                                            <p><code>ps aux | grep dialog_manager.py</code></p>
+                                            <br>
+                                            <p><code>kill -9 &lt;pid&gt;</code></p>
+                                        </div><!--//content-->
+                                    </div><!--//callout-block-->
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+
+                            <section id="sample-section" class="doc-section">
+                                <h2 class="section-title">Running ChessHelper</h2>
+                                <div class="section-block">
+                                    <p>Access the Cuneiform development environment by navigating to <em>http://&lt;HTTP_HOST&gt;:&lt;HTTP_PORT&gt;</em></p>
+                                    <h6><em>http://localhost:5000</em></h6>
+
+                                    <div class="section-block">
+                                        <h3 class="block-title">Zip the ChessHelper sample project</h3>
+                                        <ol>
+                                            <li>Navigate to <em>cuneiform/resources/deployment/samples</em></li>
+                                            <li>Compress the <em>ChessHelper</em> directory into a .zip file.</li>
+                                        </ol>
+                                    </div><!--//section-block-->
+                                    <div class="section-block">
+                                        <h3 class="block-title">Open ChessHelper</h3>
+                                        <ol>
+                                            <li>Select <em>"Upload Existing App"</em> in the Cuneiform Development Environment.</li>
+                                            <li>Select the .zip file we just created and click "Upload Application".</li>
+                                        </ol>
+                                    </div><!--//section-block-->
+                                    <div class="section-block">
+                                        <h3 class="block-title">Overview of the Cuneiform Development Environment</h3>
+                                        <p>On opening the application, you are presented with the following interface.</p>
+                                        <img class="img-responsive" src="../assets/images/quickstart/screenshots/overview.jpeg" alt="overview" />
+                                        <p>
+                                            More information on making your way through the Cuneiform development environment can be found in the tutorials.
+                                            In this chapter, we will give you a brief introduction to the different components of the environment.
+                                        </p>
+                                        <p>
+                                            On the left is the list of intents in the project. An intent represents an action that fulfills a user's request provided in natural language.
+                                            For example, <b>WelcomeIntent</b> highlights the set of actions that is executed when the user greets the system. Details on how to initiate
+                                            this intent can be viewed by clicking the <i class="icon fa fa-cog"></i> icon in the navigation view on the top right side of the environment.
+                                        </p>
+                                        <img class="img-responsive" src="../assets/images/quickstart/screenshots/WelcomeIntent.jpeg" alt="WelcomeIntent" />
+                                        <p>
+                                            Shown above is the set of details on how the <em>WelcomeIntent</em> could be initiated. This can be done with simple greetings like "Hello".
+                                            Let's see what would happen when we greet our ChessHelper.
+                                        </p>
+                                        <ol>
+                                            <li>Navigate to the development environment by going to the previous page on your browser.</li>
+                                            <li>Click on the <i class="mdi mdi-message-text"></i> icon in the navigation menu on the top right to open the <em>Try it Emulator</em>.</li>
+                                            <li>Type "Hello" in the text box at the bottom and hit enter.</li>
+                                        </ol>
+                                        <img class="img-responsive" src="../assets/images/quickstart/screenshots/Chat_Hello.jpeg" alt="Chat Hello" />
+                                        <p>
+                                            When we greet ChessHelper by saying "Hello", it responds with "Welcome to ChessHelper. You can ask...". The program for this response can be
+                                            seen by either clicking on the <em>Code</em> tab at the top.
+                                        </p>
+                                        <div class="code-block">
+                                            <pre><code class="language-javascript">
+WelcomeIntent {
+
+    node main {
+        priority : 5;
+
+        preconditions {
+
+        }
+
+        action {
+            var response = new Response;
+            response.responseSet = [
+                    "Welcome to ChessHelper. You can ask how to set up the game, about an individual piece, what the rules are, how to win, or for a chess tip. Which will it be?"
+                ];
+            response.userAction = "info";
+            response.send;
+
+            ExitIntent;
+        }
+    }
+}
+                                            </code></pre>
+                                        </div><!--//code-block-->
+                                        <p>
+                                            The program code for WelcomeIntent is shown above. The other intents are written similar to WelcomeIntent. However,if we check the intent
+                                            properties of PieceIntent, there is a slot value called "Piece", which is represented by <em>{ Piece }</em>.
+                                        </p>
+                                        <p>
+                                            When the edit button (<i class="mdi mdi-pencil"></i>) is clicked, more details of the <em>Piece</em> slot can be seen.
+                                        </p>
+                                        <img class="img-responsive" src="../assets/images/quickstart/screenshots/Piece_slot.jpeg" alt="Piece Slot" />
+                                        <P>
+                                            The slot contains values such as "king", "queen", etc. Additionally, some slot values may also contain synonyms. For example, a person may
+                                            refer to "rook" as "tower", or "castle".
+                                        </P>
+                                        <p>
+                                            The user may provide the name of the piece along with an utterance, similar to <em>"Tell me about <b>{Piece}</b>"</em>, where the piece's name,
+                                            or a synonym is to be used in place of {Piece}. An example for this can be seen in the emulator shown below, where we ask ChessHelper to tell us
+                                            about the <b>knight</b>. However, instead of saying "knight", we use "horse".
+                                        </p>
+                                        <img class="img-responsive" src="../assets/images/quickstart/screenshots/PieceIntent.jpeg" alt="Piece Intent" />
+
+                                        <p>
+                                            Explore the rest of the intents, their properties, and source code and check how ChessHelper behaves when different types of inputs are given in the
+                                            Try it Emulator. Try using different inputs, which are similar, but not provided in the sample utterances, and check if the program behaves
+                                            as expected.
+                                        </p>
+
+                                        <p>
+                                            ChessHelper is a simple application designed to demonstrate basic conversational capabilities of Cuneiform. To learn more about Cuneiform, and its
+                                            wide array of functionalities, explore more <em>samples</em>, or read our <em>documentation</em>.
+                                        </p>
+                                    </div><!--//section-block-->
+                                </div>
+                            </section>
+                        </div><!--//content-inner-->
+                    </div><!--//doc-content-->
+
+                    <div class="doc-sidebar hidden-xs">
+                        <nav id="doc-nav">
+                            <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
+                                <li><a class="scrollto" href="#intro-section">Introduction</a></li>
+                                <li><a class="scrollto" href="#prerequisites-section">Prerequisistes</a></li>
+                                <li>
+                                    <a class="scrollto" href="#installation-section">Installation</a>
+                                    <ul class="nav doc-sub-menu">
+                                        <li><a class="scrollto" href="#step1">Step One</a></li>
+                                        <li><a class="scrollto" href="#step2">Step Two</a></li>
+                                        <li><a class="scrollto" href="#step3">Step Three</a></li>
+                                    </ul><!--//nav-->
+                                </li>
+                                <li>
+                                    <a class="scrollto" href="#sample-section">Running ChessHelper</a>
+                                </li>
+                            </ul><!--//doc-menu-->
+                        </nav>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+    </div><!--//page-wrapper-->
+
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+            <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com/" targe="_blank">Xiaoying Riley</a> for developers</small>
+
+        </div><!--//container-->
+    </footer><!--//footer-->
+    
+     
+    <!-- Main Javascript -->          
+    <script type="text/javascript" src="../assets/plugins/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/plugins/prism/prism.js"></script>
+    <script type="text/javascript" src="../assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="../assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+    <script type="text/javascript" src="../assets/js/main.js"></script>
+    
+</body>
+</html> 
+

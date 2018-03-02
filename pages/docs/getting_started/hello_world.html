@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>Hello World - Cuneiform</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../../../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="../../../assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../../../assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="../../../assets/plugins/elegant_font/css/style.css">
+    <link rel="stylesheet" href="../../../assets/plugins/mdi/css/materialdesignicons.min.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="../../../assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="body-blue">
+<div class="page-wrapper">
+    <!-- ******Header****** -->
+    <header id="header" class="header">
+        <div class="container">
+            <div class="branding">
+                <h1 class="logo">
+                    <a href="../../../index.html">
+                        <span aria-hidden="true" class="icon_documents_alt icon"></span>
+                        <span class="text-highlight">Cuneiform</span><span class="text-bold">Docs</span>
+                    </a>
+                </h1>
+            </div><!--//branding-->
+            <ol class="breadcrumb">
+                <li><a href="../../../index.html">Home</a></li>
+                <li>Documentation</li>
+                <li>Getting Started</li>
+                <li class="active">Hello World</li>
+            </ol>
+        </div><!--//container-->
+    </header><!--//header-->
+    <div class="doc-wrapper">
+        <div class="container">
+            <div id="doc-header" class="doc-header text-center">
+                <h1 class="doc-title">Hello World</h1>
+                <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 2nd, 2018</div>
+            </div><!--//doc-header-->
+            <div class="doc-body">
+                <div class="doc-content">
+                    <div class="content-inner">
+                        <section id="intro-section" class="doc-section">
+                            <h2 class="section-title">Introduction</h2>
+                            <div class="section-block">
+                                <p>
+                                    In this example, we will build a basic <em>Hello World</em> application using the Cuneiform Development Environment, which will respond to us with
+                                    "Hello World" when we greet our project.
+                                </p>
+                                <p>
+                                    First, wee must run Cuneiform, and access the Cuneiform development environment in your browser. If you have not done so, visit the
+                                    <a href="../../start.html">Quick Start</a> tutorial and setup the platform.
+                                </p>
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="create-section" class="doc-section">
+                            <h2 class="section-title">Create a new app</h2>
+                            <div class="section-block">
+                                <p>A Cuneiform app represents the development environment of your application. To create an app:</p>
+                                <ol>
+                                    <li>Click on <b>Create App</b> in the left navigation menu, or in the main view.</li>
+                                    <li>
+                                        <p>Provide a name for the app. In this case, let's call it "<b>Hello World</b>".</p>
+                                        <img class="img-responsive" src="../../../assets/images/getting_started/hello_world/create_app.jpeg" alt="Creating an App">
+                                    </li>
+                                    <li>Click the <b>Create</b> button.</li>
+                                </ol>
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="intent-section" class="doc-section">
+                            <h2 class="section-title">Explore the WelcomeIntent</h2>
+                            <div class="section-block">
+                                <p>
+                                    When our HelloWorld app was created, an <a href="../intents.html">intent</a> named "<b>WelcomeIntent</b>" gets created automatically.
+                                </p>
+                                <p>
+                                    An <a href="../intents.html">intent</a> maps what a user says to an action, or a set of actions your application performs. To see more details about
+                                    WelcomeIntent, click on <b>Intent Properties</b> (<i class="icon fa fa-cog"></i> icon) on the navigation menu on the top right corner of the environment.
+                                </p>
+                                <img class="img-responsive" src="../../../assets/images/getting_started/hello_world/welcomeintent.jpeg" alt="WelcomeIntent">
+                                <p>
+                                    In the <b>Sample Utterances</b> section, you may enter examples of what you might expect users to say when they are greeting our application. Since we
+                                    are creating a basic hello world application, we should include basic greetings such as the ones which are provided by default. However, you may add
+                                    more samples if you wish. The more sample utterances we provide, users will be provided with more ways to communicate with the application such that
+                                    the system would understand.
+                                </p>
+                                <p>
+                                    As we can observe, intents also consist of sections called <b>Intent Initiative</b>, and <b>Slots</b>. To learn more about these sections, read about it
+                                    on the <a href="../intents.html">Intents</a> section of the Cuneiform documentation.
+                                </p>
+                                <p>
+                                    If any changes were made to the intent, click <b>Done</b>. Otherwise, navigate to the previous page from your browser to the main view.
+                                </p>
+                            </div>
+                        </section>
+
+                        <section id="graph-section" class="doc-section">
+                            <h2 class="section-title">Overview of the Conversation Graph</h2>
+                            <div class="section-block">
+                                <p>
+                                    Cuneiform approaches the development of conversational applications with a different concept. This concept follows a <b>data structure</b> similar to that of
+                                    a <b>Graph</b>, which consists of a set of nodes, interconnected by edges.
+                                </p>
+                                <p>
+                                    Each edge connecting to a single node may consist with a set of preconditions. To learn more about the <b>Conversation Graph</b> approach to development
+                                    of conversational interfaces, read about it on the <a href="../conversation_graph.html">Conversation Graph</a> section in the Cuneiform documentation.
+                                </p>
+                                <p>
+                                    In our case, we have a very simple conversation graph, consisting of a single <b>main</b> node without any preconditions.
+                                </p>
+                                <img class="img-responsive" src="../../../assets/images/getting_started/hello_world/graph.jpeg" alt="Graph">
+                                <p>
+                                    The set of actions to be taken when a node is visited is to be written by the developer. Each node contains a priority, set of preconditions, and
+                                    <b>action code</b>. The action code is written in the <em>Cuneiform programming language</em>, which is very similar to Javascript.
+                                </p>
+                                <p>
+                                    In order to view the action code, first select the <b>Nodes</b> tab on the right navigation menu. Thereafter, we are provided with the option to create
+                                    a new node, as well as details of the existing nodes.
+                                </p>
+                                <img class="img-responsive" src="../../../assets/images/getting_started/hello_world/nodes.jpeg" alt="Nodes">
+                                <p>
+                                    In this case, we will be presented with the single <b>main</b> node, which is available for the WelcomeIntent. To view the action code for this main node,
+                                    click on the <b>Action Code</b> button inside the card of the main node.
+                                </p>
+                                <img class="img-responsive" src="../../../assets/images/getting_started/hello_world/node_action.jpeg" alt="Action Code">
+                                <p>
+                                    The action code represents the set of actions that would take place when the node is visited. This action code written in the
+                                    <a href="../overview/overview.html">Cuneiform programming language</a> represents the response the application would provide when the <b>main</b> node
+                                    is visited in the <b>WelcomeIntent</b> intent.
+                                </p>
+                                <p>
+                                    In this case, it would respond with one of the following responses, which is selected by the system at random.
+                                    <ul>
+                                        <li>"Hello, how may I help you?"</li>
+                                        <li>"Hello, what can I help you with?"</li>
+                                        <li>"Hello, how may I be of assistance?"</li>
+                                        <li>"Hello"</li>
+                                    </ul>
+                                    Click the <b>Close</b> button, and we will see how this conversation functions.
+                                </p>
+                            </div>
+                        </section>
+
+                        <section id="try-section" class="doc-section">
+                            <h2 class="section-title">Try it Emulator</h2>
+                            <div class="section-block">
+                                <p>
+                                    The <em>Try it Emulator</em> lets us simulate the conversation we have developed in a text based environment. This is done as follows:
+                                </p>
+                                <ol>
+                                    <li>Click on the <i class="mdi mdi-message-text"></i> icon in the navigation menu on the top right to open the <em>Try it Emulator</em>.</li>
+                                    <li>
+                                        Type "Hello" in the text box at the bottom and hit enter.
+                                    </li>
+                                </ol>
+                                <img class="img-responsive" src="../../../assets/images/getting_started/hello_world/tryit.jpeg" alt="Emulator Hello">
+                                <p>
+                                    The system responds with one of the responses that had been provided in the action code.
+                                </p>
+                                <p>
+                                    <b>Let's play around with the action code a bit this time.</b>
+                                </p>
+                                <p>
+                                    In the action code, replace all of the existing responses with a single <em>"Hello World"</em> response. Your action code for the main node should now
+                                    look like this.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">
+var response = new Response;
+response.responseSet = [
+        "Hello world"
+];
+response.userAction = "info";
+response.send;
+
+ExitIntent;
+                                    </code></pre>
+                                </div><!--//code-block-->
+                                <p>
+                                    Click on <b>Save Changes</b>, and then save the project by clicking on the <i class="mdi mdi-content-save"></i> icon in the navigation menu on the top
+                                    right to save the project. Then say "Hello" again in the emulator and see the result.
+                                </p>
+                                <img class="img-responsive" src="../../../assets/images/getting_started/hello_world/tryit2.jpeg" alt="Emulator Hello">
+                                <p>The application now responds with "Hello world".</p>
+                                <p>
+                                    <b>Congratulations!</b> You have created your very own Hello World application on Cuneiform.
+                                </p>
+                            </div>
+                        </section>
+
+                        <section id="next-section" class="doc-section">
+                            <h2 class="section-title">What's next?</h2>
+                            <div class="section-block">
+                                <p>
+                                    In the next section, we will get to learn more about intents, and their properties.
+                                </p>
+                            </div>
+                        </section>
+                    </div><!--//content-inner-->
+                </div><!--//doc-content-->
+
+                <div class="doc-sidebar hidden-xs">
+                    <nav id="doc-nav">
+                        <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
+                            <li>
+                                <a class="scrollto" href="">Getting Started</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li><a class="scrollto" href="#doc-header">Hello World</a></li>
+                                </ul><!--//nav-->
+                            </li>
+                            <li><a class="scrollto" href="">Intents</a></li>
+                            <li><a class="scrollto" href="">Conversation Graph</a></li>
+                            <li>
+                                <a class="scrollto" href="">Overview</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li>
+                                        <a class="scrollto" href="">Variables</a>
+                                        <ul class="nav doc-sub-menu">
+                                            <li><a class="scrollto" href="">Objects</a></li>
+                                            <li><a class="scrollto" href="">Arrays</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="scrollto" href="">Conditionals</a></li>
+                                    <li>
+                                        <a class="scrollto" href="">Loops</a>
+                                        <ul class="nav doc-sub-menu">
+                                            <li><a class="scrollto" href="">While loops</a></li>
+                                            <li><a class="scrollto" href="">For loops</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="scrollto" href="">System Operations</a></li>
+                                </ul>
+                            </li>
+                        </ul><!--//doc-menu-->
+                    </nav>
+                </div><!--//doc-sidebar-->
+            </div><!--//doc-body-->
+        </div><!--//container-->
+    </div><!--//doc-wrapper-->
+</div><!--//page-wrapper-->
+
+<footer id="footer" class="footer text-center">
+    <div class="container">
+        <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+        <small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com/" targe="_blank">Xiaoying Riley</a> for developers</small>
+
+    </div><!--//container-->
+</footer><!--//footer-->
+
+
+<!-- Main Javascript -->
+<script type="text/javascript" src="../../../assets/plugins/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/prism/prism.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+<script type="text/javascript" src="../../../assets/js/main.js"></script>
+
+</body>
+</html>
+
