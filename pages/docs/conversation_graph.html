@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>Conversation Graph - Cuneiform</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <!--<link rel="stylesheet" href="../../assets/plugins/font-awesome/css/font-awesome.css">-->
+    <link rel="stylesheet" href="../../assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="../../assets/plugins/elegant_font/css/style.css">
+    <link rel="stylesheet" href="../../assets/plugins/mdi/css/materialdesignicons.min.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="../../assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="body-blue">
+<div class="page-wrapper">
+    <!-- ******Header****** -->
+    <header id="header" class="header">
+        <div class="container">
+            <div class="branding">
+                <h1 class="logo">
+                    <a href="../../index.html">
+                        <span aria-hidden="true" class="icon_documents_alt icon"></span>
+                        <span class="text-highlight">Cuneiform</span><span class="text-bold">Docs</span>
+                    </a>
+                </h1>
+            </div><!--//branding-->
+            <ol class="breadcrumb">
+                <li><a href="../../index.html">Home</a></li>
+                <li>Documentation</li>
+                <li>Conversation Graph</li>
+            </ol>
+        </div><!--//container-->
+    </header><!--//header-->
+    <div class="doc-wrapper">
+        <div class="container">
+            <div id="doc-header" class="doc-header text-center">
+                <h1 class="doc-title">Conversation Graph</h1>
+                <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 3rd, 2018</div>
+            </div><!--//doc-header-->
+            <div class="doc-body">
+                <div class="doc-content">
+                    <div class="content-inner">
+                        <section id="intro-section" class="doc-section">
+                            <h2 class="section-title">Introduction</h2>
+                            <div class="section-block">
+                                <p>
+                                    In Cuneiform, each intent consists of its own conversation graph. The conversation graph is a <b>Graph data structure</b> which consists of a set
+                                    of nodes interconnected by edges. Each edge connecting into a single node may consist with a set of <b>preconditions</b>.
+                                </p>
+                                <p>
+                                    Each <b>node</b> in the conversation graph consists of the following attributes.
+                                </p>
+                                <ul>
+                                    <li>Priority</li>
+                                    <li>Preconditions</li>
+                                    <li>Action</li>
+                                </ul>
+                                <p>
+                                    The conversation graph for each intent is textually represented in a <b>cuneiform file</b>, consisting of a <b>.cu</b> extension. If any projects have
+                                    been created, cuneiform files could be found in the "<em>&lt;CUNEIFORM_HOME&gt;/resources/deployment/applications/appX/intents</em>" directory, where
+                                    <i>&lt;CUNEIFORM_HOME&gt;</i> represents the location in which Cuneiform was downloaded.
+                                </p>
+                                <p>
+                                    In this directory, we will be able to see a set of .cu files, one for each intent. The code for the conversation graph (contents of a .cu file) can also
+                                    be viewed from the Cuneiform Development Environment by selecting the intent name on the left side navigation bar, and then clicking on the
+                                    "<b><i class="mdi mdi-code-braces"></i> Code</b>" tab on the top left side of the console.
+                                </p>
+
+                                <img class="img-responsive" src="../../assets/images/docs/conversation_graph/intent_code.jpeg" alt="Intent Code">
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="how-it-works-section" class="doc-section">
+                            <h2 class="section-title">How it works</h2>
+                            <div class="section-block">
+                                <p>
+                                    As mentioned earlier, the conversation graph is a graph data structure consisting of nodes, which are interconnected with each other with edges.
+                                    Each of these edges contain a set of preconditions.
+                                </p>
+                                <img class="img-responsive" src="../../assets/images/docs/conversation_graph/order_intent_graph.jpeg" alt="Order intent graph">
+                                <p>
+                                    Consider the graph from the <a href="../samples/pizza_shop.html">PizzaShop</a> sample above. This graph consists of the following four nodes:
+                                </p>
+                                <ol>
+                                    <li>getOrderType
+                                        <ul>
+                                            <li><b>Priority</b>: 7</li>
+                                            <li><b>Preconditions</b>: Slot.type == null</li>
+                                        </ul>
+                                    </li>
+                                    <li>getTime
+                                        <ul>
+                                            <li><b>Priority</b>: 6</li>
+                                            <li><b>Preconditions</b>: Slot.time == null</li>
+                                        </ul>
+                                    </li>
+                                    <li>getAddress
+                                        <ul>
+                                            <li><b>Priority</b>: 5</li>
+                                            <li><b>Preconditions</b>: address == null && Slot.type == "delivery"</li>
+                                        </ul>
+                                    </li>
+                                    <li>searchPizza
+                                        <ul>
+                                            <li><b>Priority</b>: 5</li>
+                                            <li><b>Preconditions</b>: Slot.type != null && Slot.time != null</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                                <p>
+                                    The arrows indicate that once a node has finished executing, the next node to be executed can be any of the other nodes pointing from the
+                                    <b>current node to another node</b>, as long as the <b>preconditions are satisfied</b>. In the above graph, each node can execute every other node
+                                    upon completion. However, this may not always be the case.
+                                </p>
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="nodes-section" class="doc-section">
+                            <h2 class="section-title">Nodes</h2>
+                            <div class="section-block">
+                                <p>
+                                    In this sample above, there are two slots called "<b>type</b>", and "<b>time</b>", as well as a <a href="#global-variables-section">global variable</a>
+                                    called "<b>address</b>".
+                                </p>
+                                <p>
+                                    The code for a node follows the structure shown below:
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">
+node &lt;NODE_NAME&gt; {
+    priority: &lt;PRIORITY_VALUE&gt;;
+
+    preconditions {
+        &lt;CONDITION_SET&gt;
+    }
+
+    action {
+        &lt;ACTION_SET&gt;
+    }
+}
+                                    </code></pre>
+                                </div><!--//code-block-->
+
+                                <h3>Priority</h3>
+                                <p>
+                                    The sole purpose of assigning a priority to a node is accounting for cases where preconditions get satisfied for multiple nodes. In this case, the
+                                    node with the highest priority gets executed. This is done such that the developer get more control over the behaviour of the system. The priority
+                                    is set to <b>5</b> by default.
+                                </p>
+                                <p>
+                                    In our sample application, the user could initiate the intent without specifying values for the <b>type</b>, or <b>time</b> slots. In this case,
+                                    the preconditions hold true for both <b>getOrderType</b>, and <b>getTime</b> nodes. However, since the getOrderType node has the higher priority,
+                                    it gets executed.
+                                </p>
+                                <p>
+                                    In the case where multiple nodes of equal priority have valid preconditions (eg: getAddress and searchPizza), one node is selected by the system
+                                    at random.
+                                </p>
+
+                                <h3>Preconditions</h3>
+                                <p>
+                                    In the conversation graph, the preconditions represent the edges. Each edge pointing into a node represents the preconditions of that node. The
+                                    condition set within the preconditions are written as a condition in <a href="overview/conditionals.html">conditionals</a> for Cuneiform.
+                                </p>
+                                <p>
+                                    If there are no preconditions for the node, the condition set can be left empty. If there are more than one conditions, they can be separated by
+                                    <b>&&</b> or <b>||</b> operators, as well as <b>parenthesis</b>. To learn more about conditional statements, read about it in the
+                                    <a href="overview/conditionals.html">conditionals</a> section of the Cuneiform documentation.
+                                </p>
+
+                                <h3>Action</h3>
+                                <p>
+                                    The action indicates what is executed by the application when the node is visited. Node actions are written in the
+                                    <a href="overview.html">Cuneiform programming language</a>. The actions for a node can be viewed by visiting the <b>Nodes</b> tab on the right
+                                    navigation menu, and clicking the <b>Action Code</b> button on any of the nodes.
+                                </p>
+                                <img class="img-responsive" src="../../assets/images/docs/conversation_graph/node_card.jpeg" alt="Node card">
+                                <p>
+                                    When this button is clicked, a view pops up with the action code inside. The code can be changed in this view. Once changes are complete, click on
+                                    the <b>Save Changes</b> button, and the changes will be applied to the conversation graph.
+                                </p>
+                                <img class="img-responsive" src="../../assets/images/docs/conversation_graph/action_code.jpeg" alt="Action code">
+                            </div>
+                        </section>
+
+                        <section id="variables-section" class="doc-section">
+                            <h2 class="section-title">Global Variables</h2>
+                            <div class="section-block">
+                                <p>
+                                    Global variables are variables which are shared by all nodes in the graph. For example, in the <a href="../samples/pizza_shop.html">PizzaShop</a>
+                                    sample, there is a single global variable called "address". They can be viewed by clicking on the <b>variables</b> tab on the right navigation menu.
+                                </p>
+                                <img class="img-responsive" src="../../assets/images/docs/conversation_graph/global_variables.jpeg" alt="Global variables">
+                                <p>
+                                    In this section, existing global variables and their initial values can be viewed.
+                                </p>
+                                <p>
+                                    Variables can be created by providing a name on the <b>name</b> text field, and optionally providing a value in the <b>value</b> text field. Once
+                                    completed, hit the <b>enter/ return</b> key to create the variable.
+                                </p>
+                                <p>
+                                    We also have the option to toggle the value of the global variable between the typed values, and
+                                    <a href="overview/system_operations.html">system operations</a> by clicking on the toggle switch (<i class="mdi mdi-toggle-switch"></i>).
+                                </p>
+                                <p>
+                                    In the intent/ conversation graph code, global variables should be declared immediately after the declaration of the intent name, before any nodes,
+                                    or functions are declared.
+                                </p>
+                                <img class="img-responsive" src="../../assets/images/docs/conversation_graph/global_var_code.jpeg" alt="Global variable code">
+                            </div>
+                        </section>
+
+                        <section id="next-section" class="doc-section">
+                            <h2 class="section-title">What's next?</h2>
+                            <div class="section-block">
+                                <p>
+                                    In the next section, we will get to learn more about the Cuneiform programming language.
+                                </p>
+                            </div>
+                        </section>
+                    </div><!--//content-inner-->
+                </div><!--//doc-content-->
+
+                <div class="doc-sidebar hidden-xs">
+                    <nav id="doc-nav">
+                        <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
+                            <li>
+                                <a class="scrollto" href="">Getting Started</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li><a href="getting_started/hello_world.html">Hello World</a></li>
+                                </ul><!--//nav-->
+                            </li>
+                            <li><a href="intents.html">Intents</a></li>
+                            <li><a class="scrollto" href="#doc-header">Conversation Graph</a></li>
+                            <li>
+                                <a class="scrollto" href="">Overview</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li>
+                                        <a class="scrollto" href="">Variables</a>
+                                        <ul class="nav doc-sub-menu">
+                                            <li><a class="scrollto" href="">Objects</a></li>
+                                            <li><a class="scrollto" href="">Arrays</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="scrollto" href="">Conditionals</a></li>
+                                    <li>
+                                        <a class="scrollto" href="">Loops</a>
+                                        <ul class="nav doc-sub-menu">
+                                            <li><a class="scrollto" href="">While loops</a></li>
+                                            <li><a class="scrollto" href="">For loops</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="scrollto" href="">System Operations</a></li>
+                                </ul>
+                            </li>
+                        </ul><!--//doc-menu-->
+                    </nav>
+                </div><!--//doc-sidebar-->
+            </div><!--//doc-body-->
+        </div><!--//container-->
+    </div><!--//doc-wrapper-->
+</div><!--//page-wrapper-->
+
+<footer id="footer" class="footer text-center">
+    <div class="container">
+        <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+        <small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com/" targe="_blank">Xiaoying Riley</a> for developers</small>
+
+    </div><!--//container-->
+</footer><!--//footer-->
+
+
+<!-- Main Javascript -->
+<script type="text/javascript" src="../../assets/plugins/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../assets/plugins/prism/prism.js"></script>
+<script type="text/javascript" src="../../assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+<script type="text/javascript" src="../../assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+<script type="text/javascript" src="../../assets/js/main.js"></script>
+
+</body>
+</html>
+
