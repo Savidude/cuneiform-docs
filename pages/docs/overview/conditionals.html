@@ -10,19 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="shortcut icon" href="../../../favicon.ico">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <!-- Global CSS -->
-    <link rel="stylesheet" href="../../../../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../assets/plugins/bootstrap/css/bootstrap.min.css">
     <!-- Plugins CSS -->
     <!--<link rel="stylesheet" href="../../assets/plugins/font-awesome/css/font-awesome.css">-->
-    <link rel="stylesheet" href="../../../../assets/plugins/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../../../assets/plugins/prism/prism.css">
-    <link rel="stylesheet" href="../../../../assets/plugins/elegant_font/css/style.css">
-    <link rel="stylesheet" href="../../../../assets/plugins/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../../assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../../assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="../../../assets/plugins/elegant_font/css/style.css">
+    <link rel="stylesheet" href="../../../assets/plugins/mdi/css/materialdesignicons.min.css">
 
     <!-- Theme CSS -->
-    <link id="theme-style" rel="stylesheet" href="../../../../assets/css/styles.css">
+    <link id="theme-style" rel="stylesheet" href="../../../assets/css/styles.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -38,121 +38,134 @@
         <div class="container">
             <div class="branding">
                 <h1 class="logo">
-                    <a href="../../../../index.html">
+                    <a href="../../../index.html">
                         <span aria-hidden="true" class="icon_documents_alt icon"></span>
                         <span class="text-highlight">Cuneiform</span><span class="text-bold">Docs</span>
                     </a>
                 </h1>
             </div><!--//branding-->
             <ol class="breadcrumb">
-                <li><a href="../../../../index.html">Home</a></li>
+                <li><a href="../../../index.html">Home</a></li>
                 <li>Documentation</li>
                 <li>Overview</li>
-                <li>Variables</li>
-                <li>Objects</li>
+                <li>Conditionals</li>
             </ol>
         </div><!--//container-->
     </header><!--//header-->
     <div class="doc-wrapper">
         <div class="container">
             <div id="doc-header" class="doc-header text-center">
-                <h1 class="doc-title">Objects</h1>
+                <h1 class="doc-title">Conditionals</h1>
                 <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 4th, 2018</div>
             </div><!--//doc-header-->
             <div class="doc-body">
                 <div class="doc-content">
                     <div class="content-inner">
-                        <section id="intro-section" class="doc-section">
+                        <section id="introduction-section" class="doc-section">
                             <h2 class="section-title">Introduction</h2>
                             <div class="section-block">
                                 <p>
-                                    Cuneiform objects are a representation of data. The syntax for Cuneiform objects is very similar to that of <b>JavaScript object notation</b>
-                                    syntax.
+                                    Conditional statements are used to perform different actions based on different conditions. Conditional statements are written in our code to
+                                    perform different actions for different decisions.
                                 </p>
-
-                                <h3>Object Syntax Rules</h3>
+                                <p>
+                                    In Cuneiform, we use the following conditional statements:
+                                </p>
                                 <ul>
-                                    <li>Data is in name/value pairs</li>
-                                    <li>Data is separated by commas</li>
-                                    <li>Curly brackets hold objects</li>
-                                    <li>Square brackets hold <a href="arrays.html">Arrays</a></li>
+                                    <li><b>if</b> to specify a block of code to be executed, if a specified condition is true.</li>
+                                    <li><b>else</b> to specify a block of code to be executed, if the same condition is false.</li>
+                                    <li><b>elif</b> (else if) to specify a new condition to test, if the first condition is false.</li>
                                 </ul>
                             </div>
                         </section><!--//doc-section-->
 
-                        <section id="name-value-section" class="doc-section">
-                            <h2 class="section-title">Object Data - A Name and a Value</h2>
+                        <section id="if-section" class="doc-section">
+                            <h2 class="section-title">if Statement</h2>
                             <div class="section-block">
                                 <p>
-                                    Cuneiform object data is written as name/value pairs. A name/value pair consists of a field name, followed by a colon, followed by a value:
-                                </p>
-                                <div class="code-block">
-                                    <pre><code class="language-javascript">name : "John"</code></pre>
-                                </div><!--//code-block-->
-
-                                <h3>Properties of Cuneiform Object Values</h3>
-                                <p>
-                                    In Cuneiform, values must be one of the following data types.
-                                </p>
-                                <ul>
-                                    <li>a string</li>
-                                    <li>a number</li>
-                                    <li>another object</li>
-                                    <li>an array</li>
-                                    <li>null</li>
-                                </ul>
-                                <div class="code-block">
-                                    <pre><code class="language-javascript">{
-    name : "John",
-    age : 22,
-    car : null
-}                                   </code></pre>
-                                </div><!--//code-block-->
-                            </div>
-                        </section><!--//doc-section-->
-
-                        <section id="access-section" class="doc-section">
-                            <h2 class="section-title">Accessing Object Values</h2>
-                            <div class="section-block">
-                                <p>
-                                    Object values can be accessed by using the square bracket ([]) notation.
+                                    The <b>if</b> statement is used to specify a block of Cuneiform code if a condition is true. Its syntax is as follows.
                                 </p>
                                 <div class="code-block">
                                     <pre><code class="language-javascript">
-var person = {
-    name : "John",
-    age : 22,
-    car : null
-};
-var personName = person["name"];
+if (condition) {
+    // block of code to be executed if the condition is true
+}
+                                    </code></pre>
+                                </div><!--//code-block-->
+                                <p>
+                                    Below is an example of a system that would respond with "Good morning", if the time is less than 1200h.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">
+if (hour < 12) {
+    greeting = "Good morning";
+}
                                     </code></pre>
                                 </div><!--//code-block-->
                             </div>
                         </section>
 
-                        <section id="nesting-section" class="doc-section">
-                            <h2 class="section-title">Nested Objects</h2>
+                        <section id="else-section" class="doc-section">
+                            <h2 class="section-title">else Statement</h2>
                             <div class="section-block">
                                 <p>
-                                    Values in a nested object can be another Cuneiform object.
+                                    The <b>else</b> statement is used to specify a block of code to be executed if the conditions is false. Its syntax is as follows.
                                 </p>
                                 <div class="code-block">
                                     <pre><code class="language-javascript">
-var person = {
-    name : "John",
-    age : 22,
-    cars : {
-        car1 : "Ford",
-        car2 : "BMW",
-        car3 : "Nissan"
-    }
-};
+if (condition) {
+    // block of code to be executed if the condition is true
+} else {
+    // block of code to be executed if the condition is false
+}
                                     </code></pre>
                                 </div><!--//code-block-->
-
-                                <p>Nested objects can be accessed by using the bracket notation.</p>
+                                <p>
+                                    Below is an example of a system that would respond with "Good morning", if the time is less than 1200h, otherwise "Good evening".
+                                </p>
                                 <div class="code-block">
-                                    <pre><code class="language-javascript">var firstCar = person["cars"]["car1"];</code></pre>
+                                    <pre><code class="language-javascript">
+if (hour < 12) {
+    greeting = "Good morning";
+} else {
+    greeting = "Good evening";
+}
+                                    </code></pre>
+                                </div><!--//code-block-->
+                            </div>
+                        </section>
+
+                        <section id="elif-section" class="doc-section">
+                            <h2 class="section-title">elif Statement</h2>
+                            <div class="section-block">
+                                <p>
+                                    The <b>elif</b> statement is used to specify a new condition if the first one is false. Its syntax is as follows.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">
+if (condition1) {
+    // block of code to be executed if the condition is true
+} elif (condition2) {
+    // block of code to be executed if condition1 is false, and condition2 is true
+} else {
+    // block of code to be executed if both condition1 and condition2 are false
+}
+                                    </code></pre>
+                                </div><!--//code-block-->
+                                <p>
+                                    Below is an example of a system that would respond with "Good morning", if the time is less than 1200h, if not, but the time is less than 1800h,
+                                    greet with "Good afternoon", otherwise "Good evening".
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">
+if (hour < 10) {
+    greeting = "Good morning";
+} elif (hour < 20) {
+    greeting = "Good day";
+} else {
+    greeting = "Good evening";
+}
+                                    </code></pre>
                                 </div><!--//code-block-->
                             </div>
                         </section>
@@ -161,7 +174,7 @@ var person = {
                             <h2 class="section-title">What's next?</h2>
                             <div class="section-block">
                                 <p>
-                                    In the next section, we will discuss Arrays in Cuneiform.
+                                    The next section discusses loops in Cuneiform.
                                 </p>
                             </div>
                         </section>
@@ -174,23 +187,23 @@ var person = {
                             <li>
                                 <a class="scrollto" href="">Getting Started</a>
                                 <ul class="nav doc-sub-menu">
-                                    <li><a href="../../getting_started/hello_world.html">Hello World</a></li>
+                                    <li><a href="../getting_started/hello_world.html">Hello World</a></li>
                                 </ul><!--//nav-->
                             </li>
-                            <li><a href="../../intents.html">Intents</a></li>
-                            <li><a href="../../conversation_graph.html">Conversation Graph</a></li>
+                            <li><a href="../intents.html">Intents</a></li>
+                            <li><a href="../conversation_graph.html">Conversation Graph</a></li>
                             <li>
                                 <a class="scrollto" href="">Overview</a>
                                 <ul class="nav doc-sub-menu">
                                     <li>
-                                        <a href="../variables.html">Variables</a>
+                                        <a href="variables.html">Variables</a>
                                         <ul class="nav doc-sub-menu">
-                                            <li><a class="scrollto" href="#doc-header">Objects</a></li>
-                                            <li><a href="arrays.html">Arrays</a></li>
+                                            <li><a href="variables/objects.html">Objects</a></li>
+                                            <li><a href="variables/arrays.html">Arrays</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="../operators.html">Operators</a></li>
-                                    <li><a href="../conditionals.html">Conditionals</a></li>
+                                    <li><a href="operators.html">Operators</a></li>
+                                    <li><a class="scrollto" href="#doc-header">Conditionals</a></li>
                                     <li>
                                         <a class="scrollto" href="">Loops</a>
                                         <ul class="nav doc-sub-menu">
@@ -219,12 +232,12 @@ var person = {
 
 
 <!-- Main Javascript -->
-<script type="text/javascript" src="../../../../assets/plugins/jquery-1.12.3.min.js"></script>
-<script type="text/javascript" src="../../../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../../../assets/plugins/prism/prism.js"></script>
-<script type="text/javascript" src="../../../../assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
-<script type="text/javascript" src="../../../../assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
-<script type="text/javascript" src="../../../../assets/js/main.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/prism/prism.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+<script type="text/javascript" src="../../../assets/js/main.js"></script>
 
 </body>
 </html>
