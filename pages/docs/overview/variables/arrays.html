@@ -49,14 +49,14 @@
                 <li>Documentation</li>
                 <li>Overview</li>
                 <li>Variables</li>
-                <li>Objects</li>
+                <li>Arrays</li>
             </ol>
         </div><!--//container-->
     </header><!--//header-->
     <div class="doc-wrapper">
         <div class="container">
             <div id="doc-header" class="doc-header text-center">
-                <h1 class="doc-title">Objects</h1>
+                <h1 class="doc-title">Arrays</h1>
                 <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 4th, 2018</div>
             </div><!--//doc-header-->
             <div class="doc-body">
@@ -66,102 +66,49 @@
                             <h2 class="section-title">Introduction</h2>
                             <div class="section-block">
                                 <p>
-                                    Cuneiform objects are a representation of data. The syntax for Cuneiform objects is very similar to that of <b>JavaScript object notation</b>
-                                    syntax.
-                                </p>
-
-                                <h3>Object Syntax Rules</h3>
-                                <ul>
-                                    <li>Data is in name/value pairs</li>
-                                    <li>Data is separated by commas</li>
-                                    <li>Curly brackets hold objects</li>
-                                    <li>Square brackets hold <a href="arrays.html">Arrays</a></li>
-                                </ul>
-                            </div>
-                        </section><!--//doc-section-->
-
-                        <section id="name-value-section" class="doc-section">
-                            <h2 class="section-title">Object Data - A Name and a Value</h2>
-                            <div class="section-block">
-                                <p>
-                                    Cuneiform object data is written as name/value pairs. A name/value pair consists of a field name, followed by a colon, followed by a value:
-                                </p>
-                                <div class="code-block">
-                                    <pre><code class="language-javascript">name : "John"</code></pre>
-                                </div><!--//code-block-->
-
-                                <h3>Properties of Cuneiform Object Values</h3>
-                                <p>
-                                    In Cuneiform, values must be one of the following data types.
+                                    Arrays in Cuneiform are very similar to arrays in JavaScript Object Notation. Array values must be of the following types:
                                 </p>
                                 <ul>
-                                    <li>a string</li>
-                                    <li>a number</li>
-                                    <li>another object</li>
-                                    <li>an array</li>
+                                    <li>string</li>
+                                    <li>number</li>
+                                    <li>object</li>
+                                    <li>array</li>
                                     <li>null</li>
                                 </ul>
+                                <p>
+                                    Arrays are declared within square brackets ([]). For example:
+                                </p>
                                 <div class="code-block">
-                                    <pre><code class="language-javascript">{
-    name : "John",
-    age : 22,
-    car : null
-}                                   </code></pre>
+                                    <pre><code class="language-javascript">
+var cars = ["Tesla", "Volvo", "BMW"];
+                                    </code></pre>
                                 </div><!--//code-block-->
                             </div>
                         </section><!--//doc-section-->
 
                         <section id="access-section" class="doc-section">
-                            <h2 class="section-title">Accessing Object Values</h2>
+                            <h2 class="section-title">Accessing Array Values</h2>
                             <div class="section-block">
                                 <p>
-                                    Object values can be accessed by using the square bracket ([]) notation.
+                                    Array values can be accessed by using the index of the element in the array within square brackets ([]).
                                 </p>
                                 <div class="code-block">
                                     <pre><code class="language-javascript">
-var person = {
-    name : "John",
-    age : 22,
-    car : null
-};
-var personName = person["name"];
+var cars = ["Tesla", "Volvo", "BMW"];
+var firstCar = cars[0];
                                     </code></pre>
                                 </div><!--//code-block-->
-                            </div>
-                        </section>
-
-                        <section id="nesting-section" class="doc-section">
-                            <h2 class="section-title">Nested Objects</h2>
-                            <div class="section-block">
                                 <p>
-                                    Values in a nested object can be another Cuneiform object.
+                                    Arrays in Cuneiform start with the index <span class="text-red">0</span>.
                                 </p>
-                                <div class="code-block">
-                                    <pre><code class="language-javascript">
-var person = {
-    name : "John",
-    age : 22,
-    cars : {
-        car1 : "Ford",
-        car2 : "BMW",
-        car3 : "Nissan"
-    }
-};
-                                    </code></pre>
-                                </div><!--//code-block-->
-
-                                <p>Nested objects can be accessed by using the bracket notation.</p>
-                                <div class="code-block">
-                                    <pre><code class="language-javascript">var firstCar = person["cars"]["car1"];</code></pre>
-                                </div><!--//code-block-->
                             </div>
-                        </section>
+                        </section><!--//doc-section-->
 
                         <section id="next-section" class="doc-section">
                             <h2 class="section-title">What's next?</h2>
                             <div class="section-block">
                                 <p>
-                                    In the next section, we will discuss Arrays in Cuneiform.
+                                    The next part discusses operators in Cuneiform.
                                 </p>
                             </div>
                         </section>
@@ -185,8 +132,8 @@ var person = {
                                     <li>
                                         <a href="../variables.html">Variables</a>
                                         <ul class="nav doc-sub-menu">
-                                            <li><a class="scrollto" href="#doc-header">Objects</a></li>
-                                            <li><a href="arrays.html">Arrays</a></li>
+                                            <li><a href="objects.html">Objects</a></li>
+                                            <li><a class="scrollto" href="#doc-header">Arrays</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="../operators.html">Operators</a></li>
