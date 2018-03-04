@@ -3,7 +3,7 @@
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-    <title>For Loops - Cuneiform</title>
+    <title>While Loops - Cuneiform</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,14 +49,14 @@
                 <li>Documentation</li>
                 <li>Overview</li>
                 <li>Loops</li>
-                <li>For Loops</li>
+                <li>While Loops</li>
             </ol>
         </div><!--//container-->
     </header><!--//header-->
     <div class="doc-wrapper">
         <div class="container">
             <div id="doc-header" class="doc-header text-center">
-                <h1 class="doc-title">For Loops</h1>
+                <h1 class="doc-title">While Loops</h1>
                 <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 4th, 2018</div>
             </div><!--//doc-header-->
             <div class="doc-body">
@@ -66,28 +66,34 @@
                             <h2 class="section-title">Introduction</h2>
                             <div class="section-block">
                                 <p>
-                                    The purpose of for loops in Cuneiform is to loop through arrays.
-                                </p>
-                            </div>
-                        </section><!--//doc-section-->
-
-                        <section id="array-section" class="doc-section">
-                            <h2 class="section-title">Looping Through an Array</h2>
-                            <div class="section-block">
-                                <p>
-                                    Array values can be accessed using for-in loops.
+                                    While loops loop though a block of code as long as the specified condition holds true. Its syntax is as follows.
                                 </p>
                                 <div class="code-block">
                                     <pre><code class="language-javascript">
-var cars = ["Tesla", "Volvo", "BMW"];
-var carList = "";
-for car in cars {
-    carList = carList + " " + car;
+while (condition) {
+    // code block to be executed
+}
+                                    </code></pre>
+                                </div><!--//code-block-->
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="example-section" class="doc-section">
+                            <h2 class="section-title">Example</h2>
+                            <div class="section-block">
+                                <p>
+                                    In the following example, the code in the loop will run over and over again, as long as the variable <b>i</b> is less than 10.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">
+while (i < 10) {
+    text = text + "The number is " + i;
+    i = i + 1;
 }
                                     </code></pre>
                                 </div><!--//code-block-->
                                 <p>
-                                    In the above example, values of the car array are read and added to a string.
+                                    If you forget to  increase the variable used in the condition, the loop will never end, resulting in an infinite loop.
                                 </p>
                             </div>
                         </section><!--//doc-section-->
@@ -96,7 +102,7 @@ for car in cars {
                             <h2 class="section-title">What's next?</h2>
                             <div class="section-block">
                                 <p>
-                                    The next part discusses system operations in Cuneiform.
+                                    The next part discusses for loops in Cuneiform.
                                 </p>
                             </div>
                         </section>
@@ -129,8 +135,8 @@ for car in cars {
                                     <li>
                                         <a class="scrollto" href="">Loops</a>
                                         <ul class="nav doc-sub-menu">
-                                            <li><a href="while_loops.html">While loops</a></li>
-                                            <li><a class="scrollto" href="#doc-header">For loops</a></li>
+                                            <li><a class="scrollto" href="#doc-header">While loops</a></li>
+                                            <li><a href="for_loops.html">For loops</a></li>
                                         </ul>
                                     </li>
                                     <li><a class="scrollto" href="">System Operations</a></li>
