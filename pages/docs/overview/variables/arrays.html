@@ -57,7 +57,7 @@
         <div class="container">
             <div id="doc-header" class="doc-header text-center">
                 <h1 class="doc-title">Arrays</h1>
-                <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 4th, 2018</div>
+                <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 5th, 2018</div>
             </div><!--//doc-header-->
             <div class="doc-body">
                 <div class="doc-content">
@@ -100,6 +100,53 @@ var firstCar = cars[0];
                                 </div><!--//code-block-->
                                 <p>
                                     Arrays in Cuneiform start with the index <span class="text-red">0</span>.
+                                </p>
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="operations-section" class="doc-section">
+                            <h2 class="section-title">Array operations</h2>
+                            <div class="section-block">
+                                <h3>Append</h3>
+                                <p>
+                                    The <em>append</em> operation allows an additional value to be added into the array. Its syntax is as follows.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">arrayName.append(value);</code></pre>
+                                </div><!--//code-block-->
+                                <p>
+                                    In th example below, we shall add another value to the <b>cars</b> array.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">
+var cars = ["Tesla", "Volvo", "BMW"];
+cars.append("Toyota");
+                                    </code></pre>
+                                </div><!--//code-block-->
+                                <p>
+                                    The <b>cars</b> array now has the following values: <em>"Tesla", "Volvo", "BMW", "Toyota"</em>.
+                                </p>
+
+                                <h3>Remove</h3>
+                                <p>
+                                    The <em>remove</em> operation removes a value from an array. In order to do so, the index of the element that is to be removed must be provided.
+                                    The syntax is as follows.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">arrayName.remove(index);</code></pre>
+                                </div><!--//code-block-->
+                                <p>
+                                    In the example below, we shall remove <b>Volvo</b> from our array of cars. Since Volvo is the  element in the <b>1<sup>st</sup></b> index of the
+                                    <b>cars</b> array, the remove operation is executed as follows.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">
+var cars = ["Tesla", "Volvo", "BMW"];
+cars.remove(1);
+                                    </code></pre>
+                                </div><!--//code-block-->
+                                <p>
+                                    The <b>cars</b> array now has the following values: <em>"Tesla", "BMW"</em>.
                                 </p>
                             </div>
                         </section><!--//doc-section-->
