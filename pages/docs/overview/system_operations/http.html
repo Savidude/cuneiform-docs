@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>HTTP - Cuneiform</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../../../../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <!--<link rel="stylesheet" href="../../assets/plugins/font-awesome/css/font-awesome.css">-->
+    <link rel="stylesheet" href="../../../../assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../../../assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="../../../../assets/plugins/elegant_font/css/style.css">
+    <link rel="stylesheet" href="../../../../assets/plugins/mdi/css/materialdesignicons.min.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="../../../../assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="body-blue">
+<div class="page-wrapper">
+    <!-- ******Header****** -->
+    <header id="header" class="header">
+        <div class="container">
+            <div class="branding">
+                <h1 class="logo">
+                    <a href="../../../../index.html">
+                        <span aria-hidden="true" class="icon_documents_alt icon"></span>
+                        <span class="text-highlight">Cuneiform</span><span class="text-bold">Docs</span>
+                    </a>
+                </h1>
+            </div><!--//branding-->
+            <ol class="breadcrumb">
+                <li><a href="../../../../index.html">Home</a></li>
+                <li>Documentation</li>
+                <li>Overview</li>
+                <li>System Operations</li>
+                <li>HTTP</li>
+            </ol>
+        </div><!--//container-->
+    </header><!--//header-->
+    <div class="doc-wrapper">
+        <div class="container">
+            <div id="doc-header" class="doc-header text-center">
+                <h1 class="doc-title">HTTP</h1>
+                <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 5th, 2018</div>
+            </div><!--//doc-header-->
+            <div class="doc-body">
+                <div class="doc-content">
+                    <div class="content-inner">
+                        <section id="intro-section" class="doc-section">
+                            <h2 class="section-title">Introduction</h2>
+                            <div class="section-block">
+                                <p>
+                                    The HTTP system operation provides the developer with the option to make HTTP/S requests. The purpose of this is to access data from external APIs
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">var request = new HTTP;</code></pre>
+                                </div><!--//code-block-->
+                                <div class="callout-block callout-danger">
+                                    <div class="icon-holder">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                    </div><!--//icon-holder-->
+                                    <div class="content">
+                                        <h4 class="callout-title">Temporary Limitations of the HTTP System Operation</h4>
+                                        <p>
+                                            The HTTP system operation currently supports responses which provide data in <b>JSON</b> format. Support for XML, and plain text responses are
+                                            under development.
+                                        </p>
+                                    </div><!--//content-->
+                                </div><!--//callout-block-->
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="properties-section" class="doc-section">
+                            <h2 class="section-title">Properties</h2>
+                            <div class="section-block">
+                                <h3>method</h3>
+                                <em>Type: string</em>
+                                <p>
+                                    The HTTP request method. The following methods are currently supported by Cuneiform.
+                                </p>
+                                <ul>
+                                    <li>get</li>
+                                    <li>post</li>
+                                    <li>put</li>
+                                    <li>delete</li>
+                                </ul>
+
+                                <h3>url</h3>
+                                <em>Type: string</em>
+                                <p>
+                                    The url if the resource the HTTP/S request is intended to be sent to.
+                                </p>
+
+                                <h3>data</h3>
+                                <em>Type: object</em>
+                                <p>
+                                    Data being sent along with the HTTP/S request. This data is converted from a Cuneiform object into JSON, and is sent as a JSON payload.
+                                </p>
+
+                                <p>
+                                    An example of making a request to an external API can be found in the  <a href="../../../samples/pizza_shop.html">PizzaShop</a> sample application.
+                                    The http properties are provided as follows:
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">
+var orderData = {
+    name : typeName,
+    crust : selectedCrust,
+    size : selectedSize,
+    address : address,
+    time : dateTime
+};
+var http = new HTTP;
+http.method = "post";
+http.url = "https://pizzashop-sample.herokuapp.com/api/order/add";
+http.data = orderData;
+                                    </code></pre>
+                                </div><!--//code-block-->
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="operations-section" class="doc-section">
+                            <h2 class="section-title">Operations</h2>
+                            <div class="section-block">
+                                <h3>request</h3>
+                                <em>Return type: object</em>
+                                <p>
+                                    Makes an HTTP/S request using the properties provided.
+                                </p>
+                                <p>
+                                    Obtains the HTTP response as a JSON value, converts it to a Cuneiform object and returns it.
+                                </p>
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="next-section" class="doc-section">
+                            <h2 class="section-title">What's next?</h2>
+                            <div class="section-block">
+                                <p>
+                                    The next part discusses the implementation of the HTTP system operation.
+                                </p>
+                            </div>
+                        </section>
+                    </div><!--//content-inner-->
+                </div><!--//doc-content-->
+
+                <div class="doc-sidebar hidden-xs">
+                    <nav id="doc-nav">
+                        <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
+                            <li>
+                                <a class="scrollto" href="">Getting Started</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li><a href="../../getting_started/hello_world.html">Hello World</a></li>
+                                </ul><!--//nav-->
+                            </li>
+                            <li><a href="../../intents.html">Intents</a></li>
+                            <li><a href="../../conversation_graph.html">Conversation Graph</a></li>
+                            <li>
+                                <a class="scrollto" href="">Overview</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li>
+                                        <a href="../variables.html">Variables</a>
+                                        <ul class="nav doc-sub-menu">
+                                            <li><a href="../variables/objects.html">Objects</a></li>
+                                            <li><a href="../variables/arrays.html">Arrays</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="../operators.html">Operators</a></li>
+                                    <li><a href="../conditionals.html">Conditionals</a></li>
+                                    <li>
+                                        <a class="scrollto" href="">Loops</a>
+                                        <ul class="nav doc-sub-menu">
+                                            <li><a href="../loops/while_loops.html">While loops</a></li>
+                                            <li><a href="../loops/for_loops.html">For loops</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="../system_operations.html">System Operations</a></li>
+                                </ul>
+                            </li>
+                        </ul><!--//doc-menu-->
+                    </nav>
+                </div><!--//doc-sidebar-->
+            </div><!--//doc-body-->
+        </div><!--//container-->
+    </div><!--//doc-wrapper-->
+</div><!--//page-wrapper-->
+
+<footer id="footer" class="footer text-center">
+    <div class="container">
+        <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+        <small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com/" targe="_blank">Xiaoying Riley</a> for developers</small>
+
+    </div><!--//container-->
+</footer><!--//footer-->
+
+
+<!-- Main Javascript -->
+<script type="text/javascript" src="../../../../assets/plugins/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="../../../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../assets/plugins/prism/prism.js"></script>
+<script type="text/javascript" src="../../../../assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+<script type="text/javascript" src="../../../../assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+<script type="text/javascript" src="../../../../assets/js/main.js"></script>
+
+</body>
+</html>
+
