@@ -3,7 +3,7 @@
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-    <title>File - Cuneiform</title>
+    <title>Internal Database - Cuneiform</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,14 +49,14 @@
                 <li>Documentation</li>
                 <li>Overview</li>
                 <li>System Operations</li>
-                <li>File</li>
+                <li>Internal Database</li>
             </ol>
         </div><!--//container-->
     </header><!--//header-->
     <div class="doc-wrapper">
         <div class="container">
             <div id="doc-header" class="doc-header text-center">
-                <h1 class="doc-title">File</h1>
+                <h1 class="doc-title">InternalDatabase</h1>
                 <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 5th, 2018</div>
             </div><!--//doc-header-->
             <div class="doc-body">
@@ -66,11 +66,11 @@
                             <h2 class="section-title">Introduction</h2>
                             <div class="section-block">
                                 <p>
-                                    The File system operation is used for file I/O functions in Cuneiform.
+                                    Cuneiform maintains an internal SQL database. Access to this database, and the ability to perform queries is supported by the programming language.
+                                    A reference to the InternalDatabase system operation is assigned to a variable as shown below.
                                 </p>
-
                                 <div class="code-block">
-                                    <pre><code class="language-javascript">var file = new File; </code></pre>
+                                    <pre><code class="language-javascript">var database = new InternalDatabase; </code></pre>
                                 </div><!--//code-block-->
                             </div>
                         </section><!--//doc-section-->
@@ -78,59 +78,17 @@
                         <section id="properties-section" class="doc-section">
                             <h2 class="section-title">Properties</h2>
                             <div class="section-block">
-                                <h3>name</h3>
+                                <h3>database</h3>
                                 <em>Type: string</em>
                                 <p>
-                                    The name property is a string value that contains the name of the file you want to access. You may also provide the path to the file that needs to
-                                    be accessed.
+                                    The <em>database</em> property refers to the name of the database. The Cuneiform platform allows developers to create as many internal databases
+                                    as they need.
                                 </p>
 
-                                <h3>accessMode</h3>
+                                <h3>query</h3>
                                 <em>Type: string</em>
                                 <p>
-                                    The access mode determines the mode in which the file has to be opened, i.e., read, write, append, etc. A complete list of possible values is given
-                                    below in the table.
-                                </p>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <td>Mode</td>
-                                            <td>Description</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>r</td>
-                                            <td>Opens a file for reading only. The file pointer is placed at the beginning of the file.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>r+</td>
-                                            <td>Opens the file for both reading and writing. The file pointer is placed at the beginning of the file.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>w</td>
-                                            <td>Opens a file for writing only. If the file exists, it gets overwritten. If the file does not exist, a new file is created for writing.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>w+</td>
-                                            <td>Opens a file for both reading and writing. Overwrites the existing file if it exists. If the file does not exist, creates a new file for reading and writing.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>a</td>
-                                            <td>Opens a file for appending. If the file exists, the file pointer is at the end of the file. If the file does not exist, it creates a new file for writing.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>a+</td>
-                                            <td>Opens a file for both appending and reading. If the file exists, the file pointer is at the end of the file. If the file does not exist, it creates a new file for reading and writing.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                                <h3>insert</h3>
-                                <em>Type: array</em>
-                                <p>
-                                    The insert property must be provided only when writing, and appending to a file. The provided value is an array, where each element in the array
-                                    represents a new line.
+                                    The database query that is to be executed. This should be provided as a SQL query in the form of a string.
                                 </p>
                             </div>
                         </section><!--//doc-section-->
@@ -138,41 +96,32 @@
                         <section id="operations-section" class="doc-section">
                             <h2 class="section-title">Operations</h2>
                             <div class="section-block">
-                                <h3>write</h3>
+                                <h3>connect</h3>
                                 <em>Return type: integer</em>
                                 <p>
-                                    Writes provided text to the file as a single line. If multiple values are provided in the <b>insert</b> property, every value is written in the
-                                    same line.
+                                    Makes a connection to the database after a value for <b>database</b> is provided.
                                 </p>
                                 <p>
-                                    Returns <b>1</b> if written to file successfully, returns <b>0</b> otherwise.
+                                    Returns <b>1</b> if the database connection is successful, <b>0</b> is unsuccessful.
                                 </p>
 
-                                <h3>writeLines</h3>
+                                <h3>disconnect</h3>
                                 <em>Return type: integer</em>
                                 <p>
-                                    Writes provided text in multiple lines, where each value in the <b>insert</b> property is written in a new line.
+                                    Disconnects from the database if a connection has been established earlier.
                                 </p>
                                 <p>
-                                    Returns <b>1</b> if written to file successfully, returns <b>0</b> otherwise.
-                                </p>
-
-                                <h3>read</h3>
-                                <em>Return type: string</em>
-                                <p>
-                                    Reads the entire text in the file as a whole.
-                                </p>
-                                <p>
-                                    Returns the text file as a single string value.
+                                    Returns <b>1</b> if the disconnection is successful, <b>0</b> is unsuccessful.
                                 </p>
 
-                                <h3>readLines</h3>
-                                <em>Return type: array</em>
+                                <h3>executeQuery</h3>
+                                <em>Return type: nested array</em>
                                 <p>
-                                    Reads the text in the file line by line.
+                                    Obtains the query value provided for the <b>query</b> property and executes the SQL query.
                                 </p>
                                 <p>
-                                    Returns the text file as an array of strings, where each element in the array represents the text in a line.
+                                    Each element in the <b>parent array</b> corresponds to a row obtained from the query. Each of these elements (<b>child array</b>) correspond to a
+                                    column in the row. Returns an empty array if no results are found.
                                 </p>
                             </div>
                         </section><!--//doc-section-->
@@ -181,7 +130,7 @@
                             <h2 class="section-title">What's next?</h2>
                             <div class="section-block">
                                 <p>
-                                    The next part discusses the implementation of the InternalDatabase system operation.
+                                    The next part discusses the implementation of the External Database system operation.
                                 </p>
                             </div>
                         </section>
