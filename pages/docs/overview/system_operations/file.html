@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>File - Cuneiform</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../../../../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <!--<link rel="stylesheet" href="../../assets/plugins/font-awesome/css/font-awesome.css">-->
+    <link rel="stylesheet" href="../../../../assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../../../assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="../../../../assets/plugins/elegant_font/css/style.css">
+    <link rel="stylesheet" href="../../../../assets/plugins/mdi/css/materialdesignicons.min.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="../../../../assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="body-blue">
+<div class="page-wrapper">
+    <!-- ******Header****** -->
+    <header id="header" class="header">
+        <div class="container">
+            <div class="branding">
+                <h1 class="logo">
+                    <a href="../../../../index.html">
+                        <span aria-hidden="true" class="icon_documents_alt icon"></span>
+                        <span class="text-highlight">Cuneiform</span><span class="text-bold">Docs</span>
+                    </a>
+                </h1>
+            </div><!--//branding-->
+            <ol class="breadcrumb">
+                <li><a href="../../../../index.html">Home</a></li>
+                <li>Documentation</li>
+                <li>Overview</li>
+                <li>System Operations</li>
+                <li>File</li>
+            </ol>
+        </div><!--//container-->
+    </header><!--//header-->
+    <div class="doc-wrapper">
+        <div class="container">
+            <div id="doc-header" class="doc-header text-center">
+                <h1 class="doc-title">File</h1>
+                <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 5th, 2018</div>
+            </div><!--//doc-header-->
+            <div class="doc-body">
+                <div class="doc-content">
+                    <div class="content-inner">
+                        <section id="intro-section" class="doc-section">
+                            <h2 class="section-title">Introduction</h2>
+                            <div class="section-block">
+                                <p>
+                                    The File system operation is used for file I/O functions in Cuneiform.
+                                </p>
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="properties-section" class="doc-section">
+                            <h2 class="section-title">Properties</h2>
+                            <div class="section-block">
+                                <h3>name</h3>
+                                <em>Type: string</em>
+                                <p>
+                                    The name property is a string value that contains the name of the file you want to access. You may also provide the path to the file that needs to
+                                    be accessed.
+                                </p>
+
+                                <h3>accessMode</h3>
+                                <em>Type: string</em>
+                                <p>
+                                    The access mode determines the mode in which the file has to be opened, i.e., read, write, append, etc. A complete list of possible values is given
+                                    below in the table.
+                                </p>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <td>Mode</td>
+                                            <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>r</td>
+                                            <td>Opens a file for reading only. The file pointer is placed at the beginning of the file.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>r+</td>
+                                            <td>Opens the file for both reading and writing. The file pointer is placed at the beginning of the file.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>w</td>
+                                            <td>Opens a file for writing only. If the file exists, it gets overwritten. If the file does not exist, a new file is created for writing.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>w+</td>
+                                            <td>Opens a file for both reading and writing. Overwrites the existing file if it exists. If the file does not exist, creates a new file for reading and writing.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>a</td>
+                                            <td>Opens a file for appending. If the file exists, the file pointer is at the end of the file. If the file does not exist, it creates a new file for writing.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>a+</td>
+                                            <td>Opens a file for both appending and reading. If the file exists, the file pointer is at the end of the file. If the file does not exist, it creates a new file for reading and writing.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h3>insert</h3>
+                                <em>Type: array</em>
+                                <p>
+                                    The insert property must be provided only when writing, and appending to a file. The provided value is an array, where each element in the array
+                                    represents a new line.
+                                </p>
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="operations-section" class="doc-section">
+                            <h2 class="section-title">Operations</h2>
+                            <div class="section-block">
+                                <h3>write</h3>
+                                <em>Return type: integer</em>
+                                <p>
+                                    Writes provided text to the file as a single line. If multiple values are provided in the <b>insert</b> property, every value is written in the
+                                    same line.
+                                </p>
+                                <p>
+                                    Returns <b>1</b> if written to file successfully, returns <b>0</b> otherwise.
+                                </p>
+
+                                <h3>writeLines</h3>
+                                <em>Return type: integer</em>
+                                <p>
+                                    Writes provided text in multiple lines, where each value in the <b>insert</b> property is written in a new line.
+                                </p>
+                                <p>
+                                    Returns <b>1</b> if written to file successfully, returns <b>0</b> otherwise.
+                                </p>
+
+                                <h3>read</h3>
+                                <em>Return type: string</em>
+                                <p>
+                                    Reads the entire text in the file as a whole.
+                                </p>
+                                <p>
+                                    Returns the text file as a single string value.
+                                </p>
+
+                                <h3>readLines</h3>
+                                <em>Return type: array</em>
+                                <p>
+                                    Reads the text in the file line by line.
+                                </p>
+                                <p>
+                                    Returns the text file as an array of strings, where each element in the array represents the text in a line.
+                                </p>
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="next-section" class="doc-section">
+                            <h2 class="section-title">What's next?</h2>
+                            <div class="section-block">
+                                <p>
+                                    The next part discusses the implementation of the InternalDatabase system operation.
+                                </p>
+                            </div>
+                        </section>
+                    </div><!--//content-inner-->
+                </div><!--//doc-content-->
+
+                <div class="doc-sidebar hidden-xs">
+                    <nav id="doc-nav">
+                        <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
+                            <li>
+                                <a class="scrollto" href="">Getting Started</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li><a href="../../getting_started/hello_world.html">Hello World</a></li>
+                                </ul><!--//nav-->
+                            </li>
+                            <li><a href="../../intents.html">Intents</a></li>
+                            <li><a href="../../conversation_graph.html">Conversation Graph</a></li>
+                            <li>
+                                <a class="scrollto" href="">Overview</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li>
+                                        <a href="../variables.html">Variables</a>
+                                        <ul class="nav doc-sub-menu">
+                                            <li><a href="../variables/objects.html">Objects</a></li>
+                                            <li><a href="../variables/arrays.html">Arrays</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="../operators.html">Operators</a></li>
+                                    <li><a href="../conditionals.html">Conditionals</a></li>
+                                    <li>
+                                        <a class="scrollto" href="">Loops</a>
+                                        <ul class="nav doc-sub-menu">
+                                            <li><a href="../loops/while_loops.html">While loops</a></li>
+                                            <li><a href="../loops/for_loops.html">For loops</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="../system_operations.html">System Operations</a></li>
+                                </ul>
+                            </li>
+                        </ul><!--//doc-menu-->
+                    </nav>
+                </div><!--//doc-sidebar-->
+            </div><!--//doc-body-->
+        </div><!--//container-->
+    </div><!--//doc-wrapper-->
+</div><!--//page-wrapper-->
+
+<footer id="footer" class="footer text-center">
+    <div class="container">
+        <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+        <small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com/" targe="_blank">Xiaoying Riley</a> for developers</small>
+
+    </div><!--//container-->
+</footer><!--//footer-->
+
+
+<!-- Main Javascript -->
+<script type="text/javascript" src="../../../../assets/plugins/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="../../../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../assets/plugins/prism/prism.js"></script>
+<script type="text/javascript" src="../../../../assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+<script type="text/javascript" src="../../../../assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+<script type="text/javascript" src="../../../../assets/js/main.js"></script>
+
+</body>
+</html>
+
