@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>Intent Classifier - Cuneiform</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../../../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <!--<link rel="stylesheet" href="../../assets/plugins/font-awesome/css/font-awesome.css">-->
+    <link rel="stylesheet" href="../../../assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../../assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="../../../assets/plugins/elegant_font/css/style.css">
+    <link rel="stylesheet" href="../../../assets/plugins/mdi/css/materialdesignicons.min.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="../../../assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="body-blue">
+<div class="page-wrapper">
+    <!-- ******Header****** -->
+    <header id="header" class="header">
+        <div class="container">
+            <div class="branding">
+                <h1 class="logo">
+                    <a href="../../../index.html">
+                        <span aria-hidden="true" class="icon_documents_alt icon"></span>
+                        <span class="text-highlight">Cuneiform</span><span class="text-bold">Docs</span>
+                    </a>
+                </h1>
+            </div><!--//branding-->
+            <ol class="breadcrumb">
+                <li><a href="../../../index.html">Home</a></li>
+                <li>How it Works</li>
+                <li>Classifier</li>
+                <li>Intent Classifier</li>
+            </ol>
+        </div><!--//container-->
+    </header><!--//header-->
+    <div class="doc-wrapper">
+        <div class="container">
+            <div id="doc-header" class="doc-header text-center">
+                <h1 class="doc-title">Intent Classifier</h1>
+                <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 14th, 2018</div>
+            </div><!--//doc-header-->
+            <div class="doc-body">
+                <div class="doc-content">
+                    <div class="content-inner">
+                        <section id="intro-section" class="doc-section">
+                            <h2 class="section-title">Introduction</h2>
+                            <div class="section-block">
+                                <p>
+                                    The main responsibility of the intent classifier is identifying the intent of a user from an utterance. Additionally, it also identifies
+                                    values provided for slots within user utterances. The flowchart below describes the intent classification algorithm implemented in Cuenifrom.
+                                </p>
+                                <img class="img-responsive" src="../../../assets/images/implementation/classifier/intent_classifier/intent_classifier_flowchart.png" alt="Flowchart" />
+                                <p>
+                                    Utterances made by the user should go through the intent classifier even though the user intent may have already been identified. If the
+                                    intent has been identified, the classifier should attempt to identify slot values only if the userAction has been set to <b>answer</b>.
+                                </p>
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="intent-section" class="doc-section">
+                            <h2 class="section-title">Intent Classification</h2>
+                            <div class="section-block">
+                                <p>
+                                    When attempting to identify the user intent, the classifier tokenizes, and stems the utterance made by the user, and compares it with how often
+                                    each word occurs in each intent. The previous section <a href="intent_processor.html">intent processor</a> explains the process of
+                                    tokenization and stemming. The code below shows how this is done.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">
+intent_scores = []
+intent_words = utterance_data['intent_words']
+corpus_words = utterance_data['corpus_words']
+tokenized_message = word_tokenize(message.lower())
+
+for intent, words in intent_words.items():
+    score = 0
+    for word in tokenized_message:
+        stemmed_word = stemmer.stem(word)
+        if stemmed_word in words:
+            score += (1 / corpus_words[stemmed_word])
+
+    intent_score = {'intent': intent, 'score': score}
+    intent_scores.append(intent_score)
+                                    </code></pre>
+                                </div><!--//code-block-->
+                                <p>
+                                    The <b>message</b> variable refers to the message sent by the user (utterance made by the user). Notice how each word from the message is tokenized,
+                                    stemmed, and lower cased. The accuracy of this algorithm is significantly improved by accounting for how commonly each word occurs in the provided
+                                    set of sample utterances. This is due to the fact that words that are used more frequently such as "the", "is", "a", etc. should carry a lower
+                                    <b>weight</b> than some of the other words.
+                                </p>
+                                <p>
+                                    Taking these weights into account, a score is provided for every intent. This score is later used as a factor when determining the intent of the
+                                    user.
+                                </p>
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="slot-section" class="doc-section">
+                            <h2 class="section-title">Slot Identification</h2>
+                            <div class="section-block">
+                                <p>
+                                    A user may provide values for <a href="../../docs/intents.html#slots-section">slots</a> along with their utterances. As a result, the
+                                    classifier must also attempt to identify these slot values. Cuneiform currently supports 3 types of slot values.
+                                </p>
+                                <ol>
+                                    <li>Datetime</li>
+                                    <li>Number</li>
+                                    <li>Custom</li>
+                                </ol>
+                                <p>
+                                    When attempting to identify dates and times from user utterances, Cuneiform makes use of the <a href="https://dateparser.readthedocs.io/en/v0.7.0/">dateparser</a>
+                                    Python library. This library provides modules to easily parse dates, and times provided in natural language into a datetime object which we
+                                    can make use of.
+                                </p>
+
+                                <h3>Identifying custom slot values</h3>
+                                <p>
+                                    As stated in the <a href="intent_processor.html">intent processor</a>, custom slot values are processed, and the information are stored in
+                                    another file. The post processed data in the file is saved in JSON format. Shown below is an example of the processed slots in the
+                                    <a href="../../samples/chess_helper.html">ChessHelper</a> sample.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">
+{
+  "intents": [
+    {
+      "name": "PieceIntent",
+      "slots": [
+        {
+          "name": "Piece",
+          "type": "custom",
+          "values": [
+            {
+              "name": "king",
+              "words": [
+                "king",
+                "baron"
+              ]
+            },
+            {
+              "name": "queen",
+              "words": [
+                "queen"
+              ]
+            },
+            {
+              "name": "rook",
+              "words": [
+                "rook",
+                "tow",
+                "castl"
+              ]
+            },
+            {
+              "name": "bishop",
+              "words": [
+                "bishop"
+              ]
+            },
+            {
+              "name": "knight",
+              "words": [
+                "knight",
+                "hors"
+              ]
+            },
+            {
+              "name": "pawn",
+              "words": [
+                "pawn"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+                                    </code></pre>
+                                </div><!--//code-block-->
+                                <p>
+                                    The message provided by the user is tokenized, and each tokenized word is stemmed, and put into a list. Each word in this list
+                                    is compared with the processed slot values in the file. If a match is found, the classifier uses this information when classifying the user
+                                    intent. This is done as follows.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">
+for message_word in enumerate(tokenized_message):
+    message_word = stemmer.stem(message_word)
+    for intent in intents_list:
+        if intent_name is None:
+            intent_name = intent['name']
+        if intent_name == intent['name']:
+            slots_list = intent['slots']
+            for slot in slots_list:
+                slot_name = slot['name']
+                slot_values = slot['values']
+                for value in slot_values:
+                    words = value['words']
+                    for word in words:
+                        if message_word == word:
+                            slot_data = {'intent': intent_name, 'slot': slot_name,
+                                         'value': value['name']}
+                            identified_slots.append(slot_data)
+                                    </code></pre>
+                                </div><!--//code-block-->
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="next-section" class="doc-section">
+                            <h2 class="section-title">What's next?</h2>
+                            <div class="section-block">
+                                <p>
+                                    The next section explores the Cuneiform development environment.
+                                </p>
+                            </div>
+                        </section>
+                    </div><!--//content-inner-->
+                </div><!--//doc-content-->
+
+                <div class="doc-sidebar hidden-xs">
+                    <nav id="doc-nav">
+                        <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
+                            <li><a href="../architecture.html">System Architecture</a></li>
+                            <li><a href="../responder.html">Responder</a></li>
+                            <li>
+                                <a href="">Classifier</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li><a href="intent_processor.html">Intent Processor</a></li>
+                                    <li><a class="scrollto" href="#doc-header">Intent Classifier</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="scrollto" href="">Dialogue Manager</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li><a href="">Development Environment</a></li>
+                                    <li><a href="">Cuneiform Script</a></li>
+                                    <li>
+                                        <a href="">Interpreter</a>
+                                        <ul class="nav doc-sub-menu">
+                                            <li><a href="">Lexer</a></li>
+                                            <li><a href="">Parser</a></li>
+                                            <li><a href="">Interpreter</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul><!--//doc-menu-->
+                    </nav>
+                </div><!--//doc-sidebar-->
+            </div><!--//doc-body-->
+        </div><!--//container-->
+    </div><!--//doc-wrapper-->
+</div><!--//page-wrapper-->
+
+<footer id="footer" class="footer text-center">
+    <div class="container">
+        <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+        <!--<small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com/" targe="_blank">Xiaoying Riley</a> for developers</small>-->
+
+    </div><!--//container-->
+</footer><!--//footer-->
+
+
+<!-- Main Javascript -->
+<script type="text/javascript" src="../../../assets/plugins/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/prism/prism.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+<script type="text/javascript" src="../../../assets/js/main.js"></script>
+
+</body>
+</html>
+
