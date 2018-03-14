@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>Intent Processor - Cuneiform</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../../../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <!--<link rel="stylesheet" href="../../assets/plugins/font-awesome/css/font-awesome.css">-->
+    <link rel="stylesheet" href="../../../assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../../assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="../../../assets/plugins/elegant_font/css/style.css">
+    <link rel="stylesheet" href="../../../assets/plugins/mdi/css/materialdesignicons.min.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="../../../assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="body-blue">
+<div class="page-wrapper">
+    <!-- ******Header****** -->
+    <header id="header" class="header">
+        <div class="container">
+            <div class="branding">
+                <h1 class="logo">
+                    <a href="../../../index.html">
+                        <span aria-hidden="true" class="icon_documents_alt icon"></span>
+                        <span class="text-highlight">Cuneiform</span><span class="text-bold">Docs</span>
+                    </a>
+                </h1>
+            </div><!--//branding-->
+            <ol class="breadcrumb">
+                <li><a href="../../../index.html">Home</a></li>
+                <li>How it Works</li>
+                <li>Classifier</li>
+                <li>Intent Processor</li>
+            </ol>
+        </div><!--//container-->
+    </header><!--//header-->
+    <div class="doc-wrapper">
+        <div class="container">
+            <div id="doc-header" class="doc-header text-center">
+                <h1 class="doc-title">Intent Processor</h1>
+                <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 14th, 2018</div>
+            </div><!--//doc-header-->
+            <div class="doc-body">
+                <div class="doc-content">
+                    <div class="content-inner">
+                        <section id="intro-section" class="doc-section">
+                            <h2 class="section-title">Introduction</h2>
+                            <div class="section-block">
+                                <p>
+                                    The intent processor takes the <a href="../../docs/intents.html">intent</a> information provided by the developer and pre processes it into information the
+                                    <a href="intent_classifier.html">intent classifier</a> can make use of. The provided intent information get stored in a json file. For example, the intent
+                                    information in the <a href="../../samples/chess_helper.html">ChessHelper</a> sample are saved as shown below.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">
+{
+    "name" : "OverviewIntent",
+    "initiative": "user",
+    "sample_utterances" : [
+        "How do i play",
+        "How do i play chess",
+        "give me an overview of chess",
+        "give me an overview",
+        "What are the rules",
+        "What are the rules for chess",
+        "What are the rules to chess"
+    ],
+    "slots" : []
+}
+                                    </code></pre>
+                                </div><!--//code-block-->
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="classification-section" class="doc-section">
+                            <h2 class="section-title">Text Classification</h2>
+                            <div class="section-block">
+                                <p>
+                                    The algorithm approach used in the classifier is <b>Multinomial Naive Bayes</b>. The classifier is considered to be "naive" as each word in the sentence is treated as
+                                    having no connection to the other words in the utterance.
+                                </p>
+                                <p>
+                                    For example, in the utterance <em>"She sell sea shells on the sea shore"</em>, the words "she", "sells", "shells", etc. have no relationship with each other in the
+                                    eyes of the classifier. This approach is incredibly "naive". However, it would not be a problem, as we are trying to classify utterances, not understand them.
+                                </p>
+
+                                <h3>Tools</h3>
+                                <p>
+                                    <b>Natural Language Toolkit</b> (NLTK) is the main library we will be using for this purpose. NLTK is used for two purposes.
+                                </p>
+                                <ol>
+                                    <li><b>Tokenization</b> - breaking the sentence into words: "Have a nice day" tokenizes into a list of individual words: "have", "a", "nice", "day".</li>
+                                    <li><b>Stemming</b> - reducing words to their stem: “have” stems to “hav” which allows it to be matched with “having” (same stem)</li>
+                                </ol>
+
+                                <h3>Classification</h3>
+                                <p>
+                                    The next step is to observe the training data. The training data are provided by the user as "sample utterances". All intents are stored in
+                                    a .json file in the form of an array of intent objects, as shown below.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">
+[
+    {
+        "name" : "intentA",
+        "sample_utterances" : [
+            ...
+        ]
+    },
+    {
+        "name" : "intentB",
+        "sample_utterances" : [
+            ...
+        ]
+    },
+    ...
+]
+                                    </code></pre>
+                                </div><!--//code-block-->
+                                <p>
+                                    The next step is to organize the sample utterances in structures that can be worked with algorithmically.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">
+corpus_words = {}
+intent_words = {}
+stemmer = LancasterStemmer()
+
+intents = get_intents()
+intents_array = intents['intents']
+for intent in intents_array:
+    name = intent['name']
+    intent_words[name] = []
+
+    sample_utterances = intent['sample_utterances']
+    for utterance in sample_utterances:
+        slot_detected = False
+        for word in word_tokenize(utterance):
+            if word == '{':
+                slot_detected = True
+            elif word == '}':
+                slot_detected = False
+                continue
+
+            if not slot_detected:
+                stemmed_word = stemmer.stem(word.lower())
+                if stemmed_word not in corpus_words:
+                    corpus_words[stemmed_word] = 1
+                else:
+                    corpus_words[stemmed_word] += 1
+
+                intent_words[name].extend([stemmed_word])
+
+        utterance_data = {'corpus_words': corpus_words, 'intent_words': intent_words}
+                                    </code></pre>
+                                </div><!--//code-block-->
+                                <p>
+                                    The stemmer we have used is the <a href="https://en.wikipedia.org/wiki/Stemming">Lancaster stemmer</a>. The <em>get_intents()</em> function
+                                    reads intent data from the .json file, and returns all of the intents, along with the sample utterances in the form of a list. We iterate through
+                                    each intent. In each intent, we iterate through all of the provided sample utterances.
+                                </p>
+                                <p>
+                                    An utterance gets broken up into words using the <b>tokenizer</b>. <a href="../../docs/intents.html#slots-section">slots</a> are
+                                    indicated within curly braces (<em>{slotName}</em>), and therefore they are ignored at this stage. Thereafter, the word is <b>stemmed</b>
+                                    added to the word corpus. The word is also added to the list of words in the intent. Corpus is a term used in NLP. Our corpus contains a
+                                    collection of all the stemmed words. Shown below is an example of the output of the processed training data in the <a href="../../samples/chess_helper.html">ChessHelper</a>
+                                    sample.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code class="language-javascript">
+{
+    "corpus_words": {"hello": 1, "hi": 1, "welcom": 1, "good": 3, "morn": 1, "afternoon": 1, "ev": 1, "what": 6, "'s": 1, "up": 6, "?": 1, "yo": 1, "howdy": 1, "how": 11, "do": 11, "i": 12, "play": 2, "chess": 13, "giv": 3, "me": 4, "an": 2, "overview": 2, "of": 4, "ar": 3, "the": 5, "rul": 3, "for": 1, "to": 1, "set": 5, "a": 7, "gam": 4, "board": 1, "win": 4, "is": 2, "goal": 2, "can": 1, "hav": 1, "tip": 2, "pleas": 1, "tel": 1, "about": 1},
+    "intent_words": {
+        "WelcomeIntent": ["hello", "hi", "welcom", "good", "morn", "good", "afternoon", "good", "ev", "what", "'s", "up", "?", "yo", "howdy"],
+        "OverviewIntent": ["how", "do", "i", "play", "how", "do", "i", "play", "chess", "giv", "me", "an", "overview", "of", "chess", "giv", "me", "an", "overview", "what", "ar", "the", "rul", "what", "ar", "the", "rul", "for", "chess", "what", "ar", "the", "rul", "to", "chess"],
+        "SetupIntent": ["how", "do", "i", "set", "up", "a", "chess", "gam", "how", "do", "i", "set", "up", "chess", "how", "do", "i", "set", "up", "a", "chess", "board", "how", "do", "i", "set", "up", "a", "gam", "of", "chess", "how", "do", "i", "set", "up"],
+        "GoalIntent": ["how", "do", "i", "win", "a", "gam", "how", "do", "i", "win", "a", "gam", "of", "chess", "how", "do", "i", "win", "chess", "how", "do", "i", "win", "what", "is", "the", "goal", "of", "chess", "what", "is", "the", "goal"],
+        "TipIntent": ["can", "i", "hav", "a", "chess", "tip", "pleas", "giv", "me", "a", "chess", "tip"],
+        "PieceIntent": ["tel", "me", "about"]
+    }
+}
+                                    </code></pre>
+                                </div><!--//code-block-->
+                                <p>
+                                    Now we have organized our data into dictionaries.
+                                </p>
+                                <ol>
+                                    <li><b>corpus_words</b> - each stemmed word and the number of occurrences.</li>
+                                    <li><b>intent_words</b> - each intent, and the list of stemmed words within it.</li>
+                                </ol>
+                                <p>
+                                    This processed data are then stored in a .json file for classification purposes by the <a href="intent_classifier.html">Intent Classifier</a>.
+                                </p>
+                                <p>
+                                    The intent processor similarly classifies slot values, and their synonyms by stemming the words, and then storing them in a .json file for
+                                    classification purposes.
+                                </p>
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="next-section" class="doc-section">
+                            <h2 class="section-title">What's next?</h2>
+                            <div class="section-block">
+                                <p>
+                                    The next section discusses the implementation details of the intent classifier within the classifier.
+                                </p>
+                            </div>
+                        </section>
+                    </div><!--//content-inner-->
+                </div><!--//doc-content-->
+
+                <div class="doc-sidebar hidden-xs">
+                    <nav id="doc-nav">
+                        <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
+                            <li><a href="../architecture.html">System Architecture</a></li>
+                            <li><a href="../responder.html">Responder</a></li>
+                            <li>
+                                <a href="">Classifier</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li><a class="scrollto" href="#doc-header">Intent Processor</a></li>
+                                    <li><a href="">Intent Classifier</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="scrollto" href="">Dialogue Manager</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li><a href="">Development Environment</a></li>
+                                    <li><a href="">Cuneiform Script</a></li>
+                                    <li>
+                                        <a href="">Interpreter</a>
+                                        <ul class="nav doc-sub-menu">
+                                            <li><a href="">Lexer</a></li>
+                                            <li><a href="">Parser</a></li>
+                                            <li><a href="">Interpreter</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul><!--//doc-menu-->
+                    </nav>
+                </div><!--//doc-sidebar-->
+            </div><!--//doc-body-->
+        </div><!--//container-->
+    </div><!--//doc-wrapper-->
+</div><!--//page-wrapper-->
+
+<footer id="footer" class="footer text-center">
+    <div class="container">
+        <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+        <!--<small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com/" targe="_blank">Xiaoying Riley</a> for developers</small>-->
+
+    </div><!--//container-->
+</footer><!--//footer-->
+
+
+<!-- Main Javascript -->
+<script type="text/javascript" src="../../../assets/plugins/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/prism/prism.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+<script type="text/javascript" src="../../../assets/js/main.js"></script>
+
+</body>
+</html>
+
