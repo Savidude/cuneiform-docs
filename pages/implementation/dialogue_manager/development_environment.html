@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>Development Environment - Cuneiform</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../../../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <!--<link rel="stylesheet" href="../../assets/plugins/font-awesome/css/font-awesome.css">-->
+    <link rel="stylesheet" href="../../../assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../../assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="../../../assets/plugins/elegant_font/css/style.css">
+    <link rel="stylesheet" href="../../../assets/plugins/mdi/css/materialdesignicons.min.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="../../../assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="body-blue">
+<div class="page-wrapper">
+    <!-- ******Header****** -->
+    <header id="header" class="header">
+        <div class="container">
+            <div class="branding">
+                <h1 class="logo">
+                    <a href="../../../index.html">
+                        <span aria-hidden="true" class="icon_documents_alt icon"></span>
+                        <span class="text-highlight">Cuneiform</span><span class="text-bold">Docs</span>
+                    </a>
+                </h1>
+            </div><!--//branding-->
+            <ol class="breadcrumb">
+                <li><a href="../../../index.html">Home</a></li>
+                <li>How it Works</li>
+                <li>Dialogue Manager</li>
+                <li>Development Environment</li>
+            </ol>
+        </div><!--//container-->
+    </header><!--//header-->
+    <div class="doc-wrapper">
+        <div class="container">
+            <div id="doc-header" class="doc-header text-center">
+                <h1 class="doc-title">Development Environment</h1>
+                <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 24th, 2018</div>
+            </div><!--//doc-header-->
+            <div class="doc-body">
+                <div class="doc-content">
+                    <div class="content-inner">
+                        <section id="intro-section" class="doc-section">
+                            <h2 class="section-title">Introduction</h2>
+                            <div class="section-block">
+                                <img class="img-responsive" src="../../../assets/images/implementation/environment/environment.jpeg" alt="Environment"/>
+                                <p>
+                                    Shown above is an image of the Cuneiform development environment. The development environment consists of the following components.
+                                </p>
+                                <ul>
+                                    <li><a href="#intent-menu-section">Intent Menu</a> (left)</li>
+                                    <li><a href="#operations-menu-section">Operations Menu</a> (top)</li>
+                                    <li><a href="#intent-code-menu-section">Intent Code Menu</a> (right)</li>
+                                    <li><a href="#emulator-section">Try it Emulator</a> (right)</li>
+                                    <li><a href="#development-view-section">Development View</a>
+                                        <ul>
+                                            <li>Conversation Graph</li>
+                                            <li>Intent Code</li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#intent-properties-section">Intent Properties</a></li>
+                                </ul>
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="intent-menu-section" class="doc-section">
+                            <h2 class="section-title">Intent Menu</h2>
+                            <div class="section-block">
+                                <img class="img-responsive" src="../../../assets/images/implementation/environment/menu.jpeg" alt="Intent Menu"/>
+                                <p>
+                                    The intent menu shows the list of intents the developer has created in the application. Developers are provided the option to create a new
+                                    intent, which redirects to the <a href="#intent-properties-section">Intent Properties</a> view.
+                                </p>
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="operations-menu-section" class="doc-section">
+                            <h2 class="section-title">Operations Menu</h2>
+                            <div class="section-block">
+                                <img class="img-responsive" src="../../../assets/images/implementation/environment/operations-menu.jpeg" alt="Operations Menu"/>
+                                <p>
+                                    The operations menu contains the name of the current intent the developer is working on, and a set of operations.
+                                </p>
+                                <ul>
+                                    <li>Save (<i class="mdi mdi-content-save"></i>) - Saves the current intent code</li>
+                                    <li>Intent Code (<i class="mdi mdi-code-tags"></i>) - Toggles the Intent Code menu</li>
+                                    <li>Intent Properties (<i class="mdi mdi-settings"></i>) - Navigates to the Intent Properties menu</li>
+                                    <li>Try it Emulator (<i class="mdi mdi-message-text"></i>) - Toggles the Try it Emulator</li>
+                                </ul>
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="intent-code-menu-section" class="doc-section">
+                            <h2 class="section-title">Intent Code Menu</h2>
+                            <div class="section-block">
+                                <p>
+                                    The intent code menu can be seen in the right navigation menu of the development environment. If this menu is not visible, it can be toggled
+                                    to be made visible and invisible using the <i class="mdi mdi-code-tags"></i> icon in the operations menu. The intent code menu contains three
+                                    tabs.
+                                </p>
+                                <ul>
+                                    <li>Variables</li>
+                                    <li>Nodes</li>
+                                    <li>Functions</li>
+                                </ul>
+
+                                <h3>Variables</h3>
+                                <img class="img-responsive" src="../../../assets/images/implementation/environment/variables.jpeg" alt="Variables"/>
+                                <p>
+                                    The variables tab shows the global variables in the selected intent code. Global variables can be accessed and modified by all nodes and functions
+                                    within the intent.
+                                </p>
+                                <p>
+                                    New variables can be created by providing a name, and a value. A variable can be created without providing a value as well. The variable value can
+                                    be assigned to a system operation by clicking on the <i class="mdi mdi-toggle-switch"></i> button, and then selecting the system operation from the
+                                    dropdown menu.
+                                </p>
+
+                                <h3>Nodes</h3>
+                                <img class="img-responsive" src="../../../assets/images/implementation/environment/nodes.jpeg" alt="Nodes"/>
+                                <p>
+                                    A <a href="../../docs/conversation_graph.html#nodes-section">Node</a> consists of three attributes
+                                </p>
+                                <ol>
+                                    <li>Priority</li>
+                                    <li>Preconditions</li>
+                                    <li>Action</li>
+                                </ol>
+                                <p>
+                                    The priority, and preconditions can be seen on the cards displaying each node in the intent. The action for a node is represented in Cuneiform
+                                    code. The action code can be viewed by clicking on the <b>Action Code</b> button.
+                                </p>
+                                <p>
+                                    A new node can be created by clicking on the <b>Create New Node</b> button.
+                                </p>
+                            </div>
+                        </section><!--//doc-section-->
+
+                        <section id="emulator-section" class="doc-section">
+                            <h2 class="section-title">Try it Emulator</h2>
+                            <div class="section-block">
+                                <p>
+                                    The Try it Emulator provides the developer with a method to test the conversation flow of the developed application. Once saved, the
+                                    developer can communicate with the emulator via text, and it would provide responses to the application in a similar way to how it would
+                                    once deployed.
+                                </p>
+                                <img class="img-responsive" src="../../../assets/images/implementation/environment/emulatir.jpeg" alt="Emulator"/>
+                            </div>
+                        </section>
+
+                        <section id="development-view-section" class="doc-section">
+                            <h2 class="section-title">Development View</h2>
+                            <div class="section-block">
+                                <p>
+                                    The development view is the main component of the development environment. The development view consists of two tabs.
+                                </p>
+                                <ul>
+                                    <li><a href="../../docs/conversation_graph.html">Graph</a> - Visual representation of the conversation for the intent.</li>
+                                    <li><a href="cuneiform_script.html">Code</a> - Contains the intent code in the Cuneiform programming language.</li>
+                                </ul>
+                            </div>
+                        </section>
+
+                        <section id="intent-properties-section" class="doc-section">
+                            <h2 class="section-title">Intent Properties</h2>
+                            <div class="section-block">
+                                <p>
+                                    The intent properties component of the development environment can be accessed by clicking on <i class="mdi mdi-settings"></i> in the
+                                    operations menu.
+                                </p>
+                                <img class="img-responsive" src="../../../assets/images/implementation/environment/intent.jpeg" alt="Intent Properties"/>
+                                <p>
+                                    This view provides the developer with the facilities to add and modify properties of an <a href="../../docs/intents.html">intent</a>.
+                                    An intent has the following three properties.
+                                </p>
+                                <ul>
+                                    <li><a href="../../docs/intents.html#initiative-section">Initiative</a> - The action that initiates the system.</li>
+                                    <li><a href="../../docs/intents.html#utterances-section">Sample Utterances</a> - Set of likely spoken phrases mapped to intents.</li>
+                                    <li><a href="../../docs/intents.html#slots-section">Slots</a> - Pieces of information passed along user utterances.</li>
+                                </ul>
+                            </div>
+                        </section>
+
+                        <section id="next-section" class="doc-section">
+                            <h2 class="section-title">What's next?</h2>
+                            <div class="section-block">
+                                <p>
+                                    The next section explores the Cuneiform script.
+                                </p>
+                            </div>
+                        </section>
+                    </div><!--//content-inner-->
+                </div><!--//doc-content-->
+
+                <div class="doc-sidebar hidden-xs">
+                    <nav id="doc-nav">
+                        <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
+                            <li><a href="../architecture.html">System Architecture</a></li>
+                            <li><a href="../responder.html">Responder</a></li>
+                            <li>
+                                <a href="">Classifier</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li><a href="../classifier/intent_processor.html">Intent Processor</a></li>
+                                    <li><a href="../classifier/intent_classifier.html">Intent Classifier</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="scrollto" href="">Dialogue Manager</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li><a class="scrollto" href="#doc-header">Development Environment</a></li>
+                                    <li><a href="">Cuneiform Script</a></li>
+                                    <li>
+                                        <a href="">Interpreter</a>
+                                        <ul class="nav doc-sub-menu">
+                                            <li><a href="">Lexer</a></li>
+                                            <li><a href="">Parser</a></li>
+                                            <li><a href="">Interpreter</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul><!--//doc-menu-->
+                    </nav>
+                </div><!--//doc-sidebar-->
+            </div><!--//doc-body-->
+        </div><!--//container-->
+    </div><!--//doc-wrapper-->
+</div><!--//page-wrapper-->
+
+<footer id="footer" class="footer text-center">
+    <div class="container">
+        <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+        <!--<small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com/" targe="_blank">Xiaoying Riley</a> for developers</small>-->
+
+    </div><!--//container-->
+</footer><!--//footer-->
+
+
+<!-- Main Javascript -->
+<script type="text/javascript" src="../../../assets/plugins/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/prism/prism.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+<script type="text/javascript" src="../../../assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+<script type="text/javascript" src="../../../assets/js/main.js"></script>
+
+</body>
+</html>
+
