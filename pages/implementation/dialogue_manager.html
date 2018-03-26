@@ -3,7 +3,7 @@
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-    <title>Responder - Cuneiform</title>
+    <title>Dialogue Manager - Cuneiform</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,15 +47,15 @@
             <ol class="breadcrumb">
                 <li><a href="../../index.html">Home</a></li>
                 <li>How it Works</li>
-                <li>Responder</li>
+                <li>Dialogue Manager</li>
             </ol>
         </div><!--//container-->
     </header><!--//header-->
     <div class="doc-wrapper">
         <div class="container">
             <div id="doc-header" class="doc-header text-center">
-                <h1 class="doc-title">Responder</h1>
-                <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 13th, 2018</div>
+                <h1 class="doc-title">Dialogue Manager</h1>
+                <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 26th, 2018</div>
             </div><!--//doc-header-->
             <div class="doc-body">
                 <div class="doc-content">
@@ -64,81 +64,68 @@
                             <h2 class="section-title">Introduction</h2>
                             <div class="section-block">
                                 <p>
-                                    The responder is responsible for the communication between the user interface (front end) and the system. The responder handles the input
-                                    provided by the user, passes the input information to the system, and then responds to the user with the output provided by the system.
+                                    The dialogue manager contains the <b>core of the system</b>. The developer designs the conversation flow <b>for each intent</b>. This design
+                                    follows a <a href="../docs/conversation_graph.html">graph</a> data structure, which is represented by the
+                                    <a href="dialogue_manager/cuneiform_script.html">Cuneiform programming language</a>. The Cuneiform script is interpreted by the
+                                    <a href="dialogue_manager/interpreter.html">interpreter</a>. The script contains code with custom syntax for a <b>programming language
+                                    specifically designed for dialogue management</b>.
                                 </p>
+                                <img class="img-responsive" src="../../assets/images/implementation/dialogue_manager/architecture.png" alt="Dialogue Manager architecture"/>
+                                <p>
+                                    Shown above is the architecture for the Dialogue Manager component of Cuneiform. This component contains the following subcomponents.
+                                </p>
+                                <ul>
+                                    <li><a href="dialogue_manager/development_environment.html">Development Environment</a></li>
+                                    <li><a href="dialogue_manager/cuneiform_script.html">Cuneiform Script</a></li>
+                                    <li>
+                                        <a href="dialogue_manager/interpreter.html">Interpreter</a>
+                                        <ul>
+                                            <li><a href="dialogue_manager/interpreter/lexer.html">Lexer</a></li>
+                                            <li><a href="dialogue_manager/interpreter/parser.html">Parser</a></li>
+                                            <li><a href="dialogue_manager/interpreter/interpreter.html">Interpreter</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
                             </div>
                         </section><!--//doc-section-->
 
                         <section id="architecture-section" class="doc-section">
-                            <h2 class="section-title">Responder Architecture</h2>
+                            <h2 class="section-title">Dialogue Manager Architecture</h2>
                             <div class="section-block">
-                                <img class="img-responsive" src="../../assets/images/implementation/responder/responder-architecture.png" alt="Responder architecture" />
+                                <h3>Development Environment</h3>
                                 <p>
-                                    The architecture for the responder is as follows. It consists of three components.
+                                    The <a href="dialogue_manager/development_environment.html">development environment</a> contains the visual elements which enable the developer to program conversations.
+                                    The visually developed conversations get converted into a <a href="dialogue_manager/cuneiform_script.html">script</a>, which is then executed by the
+                                    <a href="dialogue_manager/interpreter.html">interpreter</a>.
                                 </p>
-                                <ol>
-                                    <li>Initiator</li>
-                                    <li>Service</li>
-                                    <li>Sessions table</li>
-                                </ol>
-
-                                <h3>Sessions Table</h3>
                                 <p>
-                                    Sessions are used to keep track of multiple conversations occurring between users and the application at any given time. The sessions
-                                    table a SQLite table within the Cuneiform internal database. This table holds details of ongoing sessions between users, and the
-                                    application. Each user session consists of the following properties:
-                                </p>
-                                <ol>
-                                    <li><b>Session ID</b> - a randomly generated unique identifier for the session</li>
-                                    <li><b>Intent</b> - the current <a href="../docs/intents.html">intent</a> between a user and the application</li>
-                                    <li><b>Action Type</b> - the expected <a href="../docs/overview/system_operations/response.html#user-action">user action</a></li>
-                                    <li><b>Last Activity</b> - timestamp indicating the last time of activity between a user and the application</li>
-                                </ol>
-                                <p>
-                                    By default, a session has a lifespan of <b>30 minutes of inactivity</b>. Afterwards, the session gets deleted. The inactive lifespan of a session
-                                    can be changed by changing the <b>max-age</b> property in the <a href="https://github.com/Savidude/cuneiform/blob/master/responder/config.json">config</a>
-                                    file within the responder.
+                                    While the application is being developed, this process is continuously repeated as the developer keeps designing and testing the application.
                                 </p>
 
-                                <h3>Service</h3>
+                                <h3>Script</h3>
                                 <p>
-                                    The responder service is a continuously running process within the responder. By default, this process runs on <b>port 5001</b>. This process
-                                    is initiated when the application starts, by executing the <a href="https://github.com/Savidude/cuneiform/blob/master/responder/start.py">start.py</a>
-                                    file. This process simply handles two tasks.
+                                    This component of the dialogue manager contains the application written in the Cuneiform <a href="dialogue_manager/cuneiform_script.html">programming language</a>.
+                                    Each <a href="../docs/intents.html">intent</a> of the application is represented by a single script.
                                 </p>
-                                <ol>
-                                    <li>Routing message data between the initiator to the classifier</li>
-                                    <li>Periodically cleaning inactive sessions</li>
-                                </ol>
                                 <p>
-                                    The frequency at which the service cleans sessions is provided in the <a href="https://github.com/Savidude/cuneiform/blob/master/responder/config.json">config</a>
-                                    file within the responder. By default, it scans for inactive sessions every minute.
+                                    When developers design the application using the development environment, the visual components is continuously translated into the scripting language.
+                                </p>
+                                <p>
+                                    The script is also the point of communication between the dialogue manager and the classifier. Once the intent has been identified by the classifier, it communicates
+                                    with the script respective to the identified intent, while providing the script with relevant information. This information is passed on to the interpreter, which
+                                    executes the script, taking into account the information provided, and then passes the output back to the classifier.
                                 </p>
 
-                                <h3>Initiator</h3>
+                                <h3>Interpreter</h3>
                                 <p>
-                                    The user interface starts its communication with the responder through its initiator. When communicating with the initiator, the user interface
-                                    must provide the current session ID, and the message in the form of a JSON object containing the keys <em>"sessionid"</em>, and <em>"message"</em>.
-                                    If it is the first time the user is communicating with the system, and a session ID has not been assigned, the interface must provide a
-                                    random session ID, less than 8 characters (eg: "123"), and thereafter, the system would assign a session ID to the user session.
+                                    The task of the interpreter is to scan the <a href="dialogue_manager/cuneiform_script.html">script</a>, and execute the set of instructions provided by it. Once
+                                    completed, the result (output) is passed back to the user.
                                 </p>
                                 <p>
-                                    Each time the initiator is providing a response to the user interface, it will pass along a session ID along with the message in the form
-                                    of a JSON object. Each time this interaction occurs, the user interface must store the new value of the session ID for the user.
-                                </p>
-                                <p>
-                                    When the initiator receives a message, it validates the provided session ID with the existing sessions. If the provided session exists, it
-                                    will get the session data, and pass the session data along with the message to the service. If not, it will create a new session with a new
-                                    ID and pass the message details to the service.
-                                </p>
-                                <p>
-                                    The user interface communicates with the initiator by executing the <a href="https://github.com/Savidude/cuneiform/blob/master/responder/responder.py">responder.py</a>
-                                    file in the responder, and providing the necessary data through standard inputs.
-                                </p>
-                                <p>
-                                    When Cuneiform plugins are developed for conversational interfaces, the development process is very simple, as the only action that should be
-                                    done is executing this file, while storing the session ID for the user.
+                                    When scanning the script, the interpreter breaks down the components of it into <b>tokens</b>. This is handled by the <a href="dialogue_manager/interpreter/lexer.html">lexer</a>.
+                                    These token are then organised into <b>nodes</b>, and a <b>Tree data structure</b> is created using the nodes. This part is handled by the
+                                    <a href="dialogue_manager/interpreter/parser.html">parser</a>. The created tree is finally traversed, executing the set of instructions provided in the script by the
+                                    <a href="dialogue_manager/interpreter/interpreter.html">interpreter</a>.
                                 </p>
                             </div>
                         </section><!--//doc-section-->
@@ -147,7 +134,7 @@
                             <h2 class="section-title">What's next?</h2>
                             <div class="section-block">
                                 <p>
-                                    The next section discusses the implementation details of the intent processor within the classifier.
+                                    The next section discusses the structure of the Cuneiform Script.
                                 </p>
                             </div>
                         </section>
@@ -158,7 +145,7 @@
                     <nav id="doc-nav">
                         <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
                             <li><a href="architecture.html">System Architecture</a></li>
-                            <li><a class="scrollto" href="#doc-header">Responder</a></li>
+                            <li><a href="responder.html">Responder</a></li>
                             <li>
                                 <a href="">Classifier</a>
                                 <ul class="nav doc-sub-menu">
@@ -167,7 +154,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="dialogue_manager.html">Dialogue Manager</a>
+                                <a class="scrollto" href="#doc-header">Dialogue Manager</a>
                                 <ul class="nav doc-sub-menu">
                                     <li><a href="dialogue_manager/development_environment.html">Development Environment</a></li>
                                     <li><a href="dialogue_manager/cuneiform_script.html">Cuneiform Script</a></li>
