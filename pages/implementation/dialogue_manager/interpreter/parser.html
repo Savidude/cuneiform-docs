@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>Parser - Cuneiform</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../../../../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <!--<link rel="stylesheet" href="../../assets/plugins/font-awesome/css/font-awesome.css">-->
+    <link rel="stylesheet" href="../../../../assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../../../assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="../../../../assets/plugins/elegant_font/css/style.css">
+    <link rel="stylesheet" href="../../../../assets/plugins/mdi/css/materialdesignicons.min.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="../../../../assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="body-blue">
+<div class="page-wrapper">
+    <!-- ******Header****** -->
+    <header id="header" class="header">
+        <div class="container">
+            <div class="branding">
+                <h1 class="logo">
+                    <a href="../../../../index.html">
+                        <span aria-hidden="true" class="icon_documents_alt icon"></span>
+                        <span class="text-highlight">Cuneiform</span><span class="text-bold">Docs</span>
+                    </a>
+                </h1>
+            </div><!--//branding-->
+            <ol class="breadcrumb">
+                <li><a href="../../../../index.html">Home</a></li>
+                <li>How it Works</li>
+                <li><a href="../../dialogue_manager.html">Dialogue Manager</a></li>
+                <li><a href="../interpreter.html">Interpreter</a></li>
+                <li>Parser</li>
+            </ol>
+        </div><!--//container-->
+    </header><!--//header-->
+    <div class="doc-wrapper">
+        <div class="container">
+            <div id="doc-header" class="doc-header text-center">
+                <h1 class="doc-title">Parser</h1>
+                <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Mar 31st, 2018</div>
+            </div><!--//doc-header-->
+            <div class="doc-body">
+                <div class="doc-content">
+                    <div class="content-inner">
+                        <section id="intro-section" class="doc-section">
+                            <h2 class="section-title">Introduction</h2>
+                            <div class="section-block">
+                                <p>
+                                    The process of finding the structure in the stream of tokens is called <b>parsing</b>. The part of the interpreter that does this job is called a
+                                    <b>parser</b>.
+                                </p>
+                                <p>
+                                    In order to analyse complex Cuneiform programming language constructs, an <b>intermediate representation</b> (IR) needs to be built.
+                                    The parser is responsible for building this IR, and the interpreter will use it to interpret the input as represented by the IR.
+                                    Cuneiform uses a <b>tree data structure</b> for an IR.
+                                </p>
+                                <p>
+                                    Before discussing the implementation of the IR of a program written using Cuneiform, we must first discuss the Cuneiform syntax.
+                                </p>
+
+                                <p>
+                                    In order to define syntax used in programming languages, <b>syntax diagrams</b> are utilized. A syntax diagram is a graphical
+                                    representation of a programming language's syntax rules. Syntax diagrams serve two main purposes:
+                                </p>
+                                <ol>
+                                    <li>Graphically representing the specification (grammar) of a programming language.</li>
+                                    <li>Designing the parser - the diagram can be mapped to code by following simple rules.</li>
+                                </ol>
+
+                                <p>
+                                    Another approach to the representation of a programming language's syntax rules is <b>grammars</b>. Unlike syntax diagrams, grammars
+                                    are a textual representation of a programming language's syntax. Reasons to use grammars include:
+                                </p>
+                                <ol>
+                                    <li>Specifies the syntax of a programming language in a concise manner.</li>
+                                    <li>Can serve as documentation.</li>
+                                    <li>Good starting point when writing a parser from scratch.</li>
+                                    <li>Availability of tools called <b>parser generators</b> which accept grammar as an input, and automatically generate a parser
+                                        based on the provided grammar.</li>
+                                </ol>
+
+                                <p>
+                                    In this project, the rules were initially designed using syntax diagrams. Thereafter, grammars were used for documentation purposes.
+                                    The documentation in the parser using grammars can be seen in <a href="https://github.com/Savidude/cuneiform/blob/master/manager/interpreter/parser.py">
+                                    parser.py</a>.
+                                </p>
+
+                            </div>
+                        </section><!--//doc-section-->
+
+
+                        <section id="associativeity-precedence-section" class="doc-section">
+                            <h2 class="section-title">Associativity and Precedence of Operators</h2>
+                            <div class="section-block">
+                                <p>
+                                    Similar to ordinary arithmetic, in Cuneiform, addition, subtraction, multiplication, and division are <b>left associative</b>. When
+                                    an operand like 5 is in the expression <em>3 + 5 + 7</em>, it has a plus sign on both sides. We need a convention do decide which
+                                    operator applies to 5. The operator + associates to the <b>left</b> because an operand that has plus sides on both sides belong to the
+                                    operator and to its left. Therefore, we say that the operator + is left associative.
+                                </p>
+                                <p>
+                                    We need another convention to resolve the ambiguity when we have different kinds of operators in the same expression. This convention should
+                                    resolve the <b>relative precedence</b> of operators.
+                                </p>
+                                <p>
+                                    If we say that the operator <b>*</b> takes its operands before + does, then it has <em>higher precedence</em>. In the arithmetic that we know
+                                    and use, multiplication and division has higher precedence than addition and subtraction. Therefore, the expression <em>3 + 5 * 7</em> is
+                                    equivalent to <em>3 + (5 * 7)</em>. Shown below is our precedence table.
+                                </p>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <td><b>Precedence Level</b></td>
+                                        <td><b>Associativity</b></td>
+                                        <td><b>Operators</b></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>left</td>
+                                        <td>+, -</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>left</td>
+                                        <td>*, /</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <p>
+                                    From the table above, we can see that * and / have higher precedence than + and -, from their precedence levels. Below are two rules
+                                    for how to syntax diagrams from the precedence tables.
+                                </p>
+                                <ol>
+                                    <li>
+                                        For each level of precedence, define a syntax diagram. Within the sequence diagram should contain arithmetic operators from that
+                                        precedence level, and reference to syntax diagrams for the next higher level of precedence.
+                                    </li>
+                                    <li>
+                                        Create an additional syntax diagram <b>factor</b> for basic units of expression, in our case, integers. The general rule is if you
+                                        have N levels of precedence, you will need N + 1 syntax diagrams in total.
+                                    </li>
+                                </ol>
+                                <p>
+                                    According to Rule 1, we have defined two syntax diagrams: a diagram called <b>expr</b> for level 2, and a diagram called <b>term</b>
+                                    for level 1. By following rule 2, we will define a <b>factor</b> non-terminal for basic units of arithmetic expressions, and integers.
+                                </p>
+                                <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/expr_syntax.png" alt="Expr Syntax"/>
+                                <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/term_syntax.png" alt="Term Syntax"/>
+                                <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/factor_syntax.png" alt="Factor Syntax"/>
+                                <p>
+                                    Each rectangular box in the diagram is a "function call" to another diagram. If we take the expression <em>3 + 5 * 7</em> and start with the top
+                                    diagram <em>expr</em> and walk our way down to the bottommost diagram <em>factor</em>, we see that higher precedence operators execute first.
+                                </p>
+
+                                <h3>Evaluating parenthesized expressions</h3>
+                                <p>
+                                    The interpreter should be able to evaluate parenthesized expressions with arbitrary deep nesting, like expressions such as
+                                    <em>7 + 3 * (10 / (12 / (3 + 1) - 1))</em>. In order to do this, the syntax should be slightly modified. The <b>factor</b> rule is
+                                    used for basic units in expressions. The only basic unit we have now is <b>Integer</b>. We will add another basic unit - a
+                                    parenthesized expression.
+                                </p>
+                                <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/factor_syntax2.png" alt="Factor Syntax"/>
+                            </div>
+                        </section>
+
+                        <section id="syntax-section" class="doc-section">
+                            <h2 class="section-title">Syntax</h2>
+                            <div class="section-block">
+                                <div id="intent-div">
+                                    <h3>Intent</h3>
+                                    <p>
+                                        As discussed earlier, a single Cuneiform script represents an <a href="../../../docs/intents.html">intent</a>. As a result, a script for an intent
+                                        follows a structure as shown below.
+                                    </p>
+                                    <div class="code-block">
+                                        <pre><code class="language-javascript">&lt;INTENT_NAME&gt; {
+    &lt;CODE_BLOCK&gt;
+} </code></pre>
+                                    </div><!--//code-block-->
+                                    <p>
+                                        &lt;CODE_BLOCK&gt; represents the code within the intent that needs to be executed. This syntax structure is represented using syntax
+                                        diagram as shown below.
+                                    </p>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/intent_syntax.png" alt="Intent Syntax"/>
+                                    <ul>
+                                        <li><em>LCB</em>, and <em>RCB</em> represents left curly bracket, and right curly bracket <b>tokens</b> respectively.</li>
+                                        <li><em>variable</em> and <em>block</em> are other variations of syntax in Cuneiform, which will be discussed next.</li>
+                                    </ul>
+                                </div>
+
+                                <div id="block-div">
+                                    <h3>Block</h3>
+                                    <p>
+                                        A block represents the code that is written within an intent. The code within a block follows the following structure.
+                                    </p>
+                                    <div class="code-block">
+                                        <pre><code class="language-javascript">&lt;VARIABLE_ASSIGNMENTS&gt;
+&lt;NODES&gt;</code></pre>
+                                    </div><!--//code-block-->
+                                    <p>
+                                        <em>&lt;VARIABLE_ASSIGNMENTS&gt;</em> are assignments and declarations of global variables within the intent. <em>&lt;NODES&gt;</em>
+                                        represent the set of <a href="../../../docs/conversation_graph.html#nodes-section">nodes</a> written for the intent. The syntax diagram
+                                        for a block is as shown below.
+                                    </p>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/block_syntax.png" alt="Block Syntax"/>
+                                </div>
+
+                                <div id="variable-assignments-div">
+                                    <h3>Variable Assignments</h3>
+                                    <p>
+                                        Variable assignments contain assignments and declarations of global variables within the intent. Its syntax structure is as shown below.
+                                    </p>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/variable_assignments_syntax.png" alt="Variable assignments Syntax"/>
+                                </div>
+
+                                <div id="nodes-div">
+                                    <h3>Nodes</h3>
+                                    <p>
+                                        Nodes contain a set of nodes.
+                                    </p>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/nodes_syntax.png" alt="Nodes Syntax"/>
+                                </div>
+
+                                <div id="node-div">
+                                    <h3>Node</h3>
+                                    <p>
+                                        A node follows the following structure.
+                                    </p>
+                                    <div class="code-block">
+                                        <pre><code class="language-javascript">node &lt;NODE_NAME&gt; {
+    &lt;CONTAINER&gt;
+}</code></pre>
+                                    </div><!--//code-block-->
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/node_syntax.png" alt="Node Syntax"/>
+                                    <p>
+                                        The container holds the code which is to be inside a node.
+                                    </p>
+                                </div>
+
+                                <div id="container-div">
+                                    <h3>Container</h3>
+                                    <p>
+                                        The code within a container has the following structure.
+                                    </p>
+                                    <div class="code-block">
+                                        <pre><code class="language-javascript">
+priority : &lt;PRIORITY_LEVEL&gt;;
+
+preconditions {
+    &lt;CONDITIONS&gt;
+}
+
+action {
+    &lt;CODE_BLOCK&gt;
+}
+                                    </code></pre>
+                                    </div><!--//code-block-->
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/container_syntax.png" alt="Container Syntax"/>
+                                </div>
+
+                                <div id="conditions-div">
+                                    <h3>Conditions</h3>
+                                    <p>
+                                        Conditions contain a set of conditions, separated by <b>and</b>, or <b>or</b> statements. Conditions can be represented as shown
+                                        below.
+                                    </p>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/conditions_syntax.png" alt="Conditions Syntax"/>
+                                </div>
+
+                                <div id="condition-div">
+                                    <h3>Condition</h3>
+                                    <p>
+                                        A single condition contains two expressions separated by any one of the following <a href="../../../docs/overview/operators.html#comparison-operators-section">
+                                        comparison operators</a>.
+                                    </p>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Operator</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th>==</th>
+                                            <th>Equal to</th>
+                                        </tr>
+                                        <tr>
+                                            <th>!=</th>
+                                            <th>Not equal</th>
+                                        </tr>
+                                        <tr>
+                                            <th>&gt;</th>
+                                            <th>Greater than</th>
+                                        </tr>
+                                        <tr>
+                                            <th>&lt;</th>
+                                            <th>Less than</th>
+                                        </tr>
+                                        <tr>
+                                            <th>&gt;=</th>
+                                            <th>Greater than or equal to</th>
+                                        </tr>
+                                        <tr>
+                                            <th>&lt;=</th>
+                                            <th>Less than or equal to</th>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/condition_syntax.png" alt="Condition Syntax"/>
+                                </div>
+
+                                <div id="code-block-div">
+                                    <h3>Code Block</h3>
+                                    <p>
+                                        A code block is the set of instructions written in the Cuneiform programming language, which represents an action that needs to be
+                                        executed when a node is visited. A code block may contain any of the following programming functions:
+                                    </p>
+                                    <ul>
+                                        <li>Variable assignments</li>
+                                        <li>Conditional statements</li>
+                                        <li>Loops</li>
+                                        <li>System operations</li>
+                                    </ul>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/code_block_syntax.png" alt="Code Block Syntax"/>
+                                </div>
+
+                                <div id="system-operation_div">
+                                    <h3>System Operation</h3>
+                                    <p>
+                                        A <a href="../../../docs/overview/system_operations.html">system operation</a> is a predefined system action. It can be represented
+                                        using a syntax diagram as follows.
+                                    </p>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/system_operation_syntax.png" alt="System Operation Syntax"/>
+                                </div>
+
+                                <div id="operation-div">
+                                    <h3>Operation</h3>
+                                    <p>
+                                        An operation is the action that is taken by a system operation. For example, a connection to a database is established by the
+                                        <b>connect</b> operation, and a database query gets executed using a <b>executeQuery</b> operation. The syntax diagram representation
+                                        for this is simple.
+                                    </p>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/operation_syntax.png" alt="Operation Syntax"/>
+                                </div>
+
+                                <div id="property-assignment-div">
+                                    <h3>Property Assignment</h3>
+                                    <p>
+                                        Assignment of properties for system operations.
+                                    </p>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/property_assignment_syntax.png" alt="Property Assignment Syntax"/>
+                                </div>
+
+                                <div id="conditional-statement-div">
+                                    <h3>Conditional Statement</h3>
+                                    <p>
+                                        A <a href="../../../docs/overview/conditionals.html">conditional statement</a> is used to perform different actions based on
+                                        different conditions. The following conditional statements are used in Cuneiform.
+                                    </p>
+                                    <ul>
+                                        <li><b>if</b> to specify a block of code to be executed, if a specified condition is true.</li>
+                                        <li><b>else</b> to specify a block of code to be executed, if the same condition is false.</li>
+                                        <li><b>elif</b> (else if) to specify a new condition to test, if the first condition is false.</li>
+                                    </ul>
+                                    <div class="code-block">
+                                            <pre><code class="language-javascript">
+if (condition1) {
+    // block of code to be executed if the condition is true
+} elif (condition2) {
+    // block of code to be executed if condition1 is false, and condition2 is true
+} else {
+    // block of code to be executed if both condition1 and condition2 are false
+}
+                                        </code></pre>
+                                    </div><!--//code-block-->
+                                    <p>
+                                        Conditional statements are written as shown above. This is can be represented using a syntax diagram as shown below.
+                                    </p>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/conditional_statement_syntax.png" alt="Conditional Statement Syntax"/>
+                                </div>
+
+                                <div id="loop-div">
+                                    <h3>Loop</h3>
+                                    <p>
+                                        There are two types of loops in Cuneiform.
+                                    </p>
+                                    <ul>
+                                        <li><a href="../../../docs/overview/loops/while_loops.html">While Loops</a></li>
+                                        <li><a href="../../../docs/overview/loops/for_loops.html">For Loops</a></li>
+                                    </ul>
+                                    <p>
+                                        Their syntax can be represented as follows:
+                                    </p>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/loop_syntax.png" alt="Loop Syntax"/>
+                                </div>
+
+                                <div id="assignment-div">
+                                    <h3>Assignment</h3>
+                                    <p>
+                                        An assignment assigns a value to a variable. This is represented as follows.
+                                    </p>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/assignment_syntax.png" alt="Assignment Syntax"/>
+                                </div>
+
+                                <div id="concat-div">
+                                    <h3>Concat</h3>
+                                    <p>
+                                        This diagram is a representation of string concatenation.
+                                    </p>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/concat_syntax.png" alt="Concat Syntax"/>
+                                </div>
+
+                                <div id="slot-div">
+                                    <h3>Slot</h3>
+                                    <p>Getting a the value of a slot.</p>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/slot_syntax.png" alt="Slot Syntax"/>
+                                </div>
+
+                                <div id="variable-div">
+                                    <h3>Variable</h3>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/variable_syntax.png" alt="Variable Syntax"/>
+                                </div>
+
+                                <div id="array-div">
+                                    <h3>Array</h3>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/array_syntax.png" alt="Array Syntax"/>
+                                </div>
+
+                                <div id="object-div">
+                                    <h3>Object</h3>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/object_syntax.png" alt="Object Syntax"/>
+                                </div>
+
+                                <div id="null-div">
+                                    <h3>Null</h3>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/null_syntax.png" alt="Null Syntax"/>
+                                </div>
+
+                                <div id="factor-div">
+                                    <h3>Additional changes to Factor</h3>
+                                    <p>
+                                        The syntax for factor is modified further to support syntax for <b>unary operators</b> (eg: -3, +7), real numbers, variables, and strings.
+                                    </p>
+                                    <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/factor_syntax3.png" alt="Factor Syntax"/>
+                                </div>
+
+                                <div id="grammar-div">
+                                    <h3>Grammar</h3>
+                                    <p>
+                                        The grammar for the Cuneiform syntax is as follows.
+                                    </p>
+                                    <div class="code-block">
+                                            <pre><code class="language-python">
+intent : variable LCB block RCB
+block : variable_assignments nodes
+variable_assignments :((assignment | declaration) SEMI)*
+                        | empty
+nodes : (node)*
+node : NODE variable LCB container RCB
+container : PRIORITY COL expr SEMI PRECONDITIONS LCB conditions RCB ACTION LCB code_block RCB
+conditions : condition ((AND | OR) condition)*
+condition : ((expr | variable | string | null | slot) (EQUAL | NEQUAL | LESS | GREATER | LEQUAL | GEQUAL)
+            (expr | variable | string| null | slot))
+            | (LPAREN conditions RPAREN)
+code_block : (variable_assignments | conditional_statement | loop | system_operation)*
+system_operation : ((variable DOT (property_assignment | operation)) | operation) SEMI
+operation : ID
+property_assignment : variable ASSIGN (object | array | expr | variable | string | slot | null)
+conditional_statement : IF LPAREN conditions RPAREN LCB code_block RCB
+                        | (ELIF LPAREN conditions RPAREN LCB code_block RCB)*
+                        | ELSE LCB code_block RCB
+loop : (WHILE LPAREN conditions RPAREN LCB code_block RCB)
+       | (FOR variable IN variable LCB code_block RCB)
+declaration : VAR variable ((ASSIGN (object | array | string | null | variable | slot | expr) | NEW system_operation) | empty
+assignment : variable ASSIGN ((object | array | expr | null | variable | slot | string) | NEW system_operation)
+concat: string (PLUS (string | variable))*
+slot: SLOT DOT variable
+variable : (ID | SYSOP)
+array : LSQB ((string | expr | variable | object | array ) COMMA )* RSQB
+object : LCB variable COL ((string | expr | variable | object | array) COMMA)* RCB
+null : NULL
+expr : term ((PLUS | MINUS) term)*
+term : factor ((MUL | INTEGER_DIV | FLOAT_DIV) factor)*
+factor : PLUS factor
+        | MINUS factor
+        | INTEGER_CONST
+        | REAL_CONST
+        | LPAREN expr RPAREN
+        | variable
+        | string
+                                        </code></pre>
+                                    </div><!--//code-block-->
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="intermediate-representation-section" class="doc-section">
+                            <h2 class="section-title">Intermediate Representation</h2>
+                            <div class="section-block">
+                                <p>
+                                    Another responsibility of the parser is building an intermediate representation, which will be used by the interpreter. The representation
+                                    used by Cuneiform is called an <b>abstract syntax tree</b> (AST).
+                                </p>
+
+                                <h3>Parse Trees</h3>
+                                <p>
+                                    <b>Parse trees</b> are another form of representation. We will compare them with ASTs to see why ASTs are better suited for intermediate
+                                    representation than parse trees. A parse tree is a tree data structure that represents the syntactic structure of the language
+                                    construct according to the given grammar definition. It shows how a parser has recognized the language construct. Let's take a look
+                                    at a parse tree for the expression 2 * 7 + 3.
+                                </p>
+                                <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/parse_tree.png" alt="Parse Tree"/>
+                                <p>
+                                    From the above diagram, we can see that:
+                                </p>
+                                <ul>
+                                    <li>The parse tree records a sequence of rules the parser applies to recognize the input.</li>
+                                    <li>The root of the parse tree is labelled with the grammar start symbol.</li>
+                                    <li>Each interior node represents a non-terminal. That is, it represents a grammar rule application, like expr, term, or factor
+                                    in our case.</li>
+                                    <li>Each leaf node represents a token.</li>
+                                </ul>
+
+                                <h3>Abstract Syntax Trees</h3>
+                                <p>
+                                    An Abstract Syntax Tree (AST) is a tree that represents the abstract syntactic structure of a language construct where each interior
+                                    node and the root node represents an operator, and the children of the node represent the operands of that operator.
+                                </p>
+                                <p>
+                                    This is the representation used throughout Cuneiform. Shown below are both the AST and parse tree representation for the expression
+                                    <em>2 * 7 + 3</em>
+                                </p>
+                                <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/ast-parse-tree-comparison.png" alt="Comparison of representations"/>
+                                <p>
+                                    As shown from the diagram above, the AST captures the essence of the script, while being similar. Here are the main differences between
+                                    ASTs and Parse Trees.
+                                </p>
+                                <ul>
+                                    <li>ASTs uses operators/operations as root and interior nodes and it uses operands as their children.</li>
+                                    <li>ASTs do not use interior nodes to represent a grammar rule, unlike the parse tree does.</li>
+                                    <li>ASTs don’t represent every detail from the real syntax (that’s why they’re called abstract) - no rule nodes and no parentheses,
+                                        for example.</li>
+                                    <li>ASTs are dense compared to a parse tree for the same language construct.</li>
+                                </ul>
+                                <p>
+                                    In order to encode operator precedence in AST, that is to represent that "X occurs before Y", X needs to be put lower in the tree
+                                    than Y.
+                                </p>
+                                <p>
+                                    As we can see, ASTs are much more compact than parse trees, but still captures the essence of the program. As a result, it has been
+                                    decided to use ASTs.
+                                </p>
+
+                                <h3>Implementation of AST</h3>
+                                <p>
+                                    A program is written to implement different AST node types, and the parser is modified to generate an AST composed of those nodes.
+                                </p>
+                                <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/ast-implementation-basic.png" alt="AST Basic Implementation"/>
+                                <p>
+                                    First, a basic node class called AST is created. Other classes will inherit from this.
+                                </p>
+                                <p>
+                                    Consider the operator-operand model. Cuneiform supports four operators, and integer, and real number operands. The operators are addition,
+                                    subtraction, multiplication, and division. A <b>BinOp</b> class has been implemented to represent all four binary operators (a binary operator
+                                    is an operator that operates on two operands).
+                                </p>
+                                <p>
+                                    The attributes of the binary operator are left, op, and right, where left and right point to the node of the left operand, and right operand
+                                    respectively. Op holds a token for the operator: Token(PLUS, ‘+’) for the plus operator, Token(MINUS, ‘-‘) for the minus operator, and so on.
+                                </p>
+                                <p>
+                                    To represent numbers in our AST, a class called <b>Num</b> is defined, which will hold a token for the number type (integer, or real),
+                                    and the number itself.
+                                </p>
+                                <p>
+                                    Shown below is how an AST will look with the new node classes defined.
+                                </p>
+                                <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/ast-node-example.png" alt="AST Node Example"/>
+                                <p>
+                                    In order to navigate an AST to properly evaluate the expression represented by that tree, a <b>postorder traversal</b> must be performed. This is a special case
+                                    of depth-first traversal which starts at the root node and recursively visits the children of each node from left to the right. The postorder traversal visits
+                                    nodes as far away from the root as fast as it can. This is performed in the <b>interpreter</b>. Shown below is a representation of all the nodes implemented in
+                                    Cuneiform.
+                                </p>
+                                <img class="img-responsive" src="../../../../assets/images/implementation/dialogue_manager/parser/ast-nodes.png" alt="AST Nodes"/>
+                            </div>
+                        </section>
+
+                        <section id="next-section" class="doc-section">
+                            <h2 class="section-title">What's next?</h2>
+                            <div class="section-block">
+                                <p>
+                                    The next section discusses implementation details of the interpreter.
+                                </p>
+                            </div>
+                        </section>
+                    </div><!--//content-inner-->
+                </div><!--//doc-content-->
+
+                <div class="doc-sidebar hidden-xs">
+                    <nav id="doc-nav">
+                        <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
+                            <li><a href="../../architecture.html">System Architecture</a></li>
+                            <li><a href="../../responder.html">Responder</a></li>
+                            <li>
+                                <a href="">Classifier</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li><a href="../../classifier/intent_processor.html">Intent Processor</a></li>
+                                    <li><a href="../../classifier/intent_classifier.html">Intent Classifier</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="../../dialogue_manager.html">Dialogue Manager</a>
+                                <ul class="nav doc-sub-menu">
+                                    <li><a href="../development_environment.html">Development Environment</a></li>
+                                    <li><a href="../cuneiform_script.html">Cuneiform Script</a></li>
+                                    <li>
+                                        <a href="../interpreter.html">Interpreter</a>
+                                        <ul class="nav doc-sub-menu">
+                                            <li><a href="lexer.html">Lexer</a></li>
+                                            <li><a class="scrollto" href="#doc-header">Parser</a></li>
+                                            <li><a href="">Interpreter</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul><!--//doc-menu-->
+                    </nav>
+                </div><!--//doc-sidebar-->
+            </div><!--//doc-body-->
+        </div><!--//container-->
+    </div><!--//doc-wrapper-->
+</div><!--//page-wrapper-->
+
+<footer id="footer" class="footer text-center">
+    <div class="container">
+        <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+        <!--<small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com/" targe="_blank">Xiaoying Riley</a> for developers</small>-->
+
+    </div><!--//container-->
+</footer><!--//footer-->
+
+
+<!-- Main Javascript -->
+<script type="text/javascript" src="../../../../assets/plugins/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="../../../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../assets/plugins/prism/prism.js"></script>
+<script type="text/javascript" src="../../../../assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+<script type="text/javascript" src="../../../../assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+<script type="text/javascript" src="../../../../assets/js/main.js"></script>
+
+</body>
+</html>
+
